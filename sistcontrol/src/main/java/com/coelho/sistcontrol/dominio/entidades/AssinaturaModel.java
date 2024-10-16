@@ -1,13 +1,13 @@
 package com.coelho.sistcontrol.dominio.entidades;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 public class AssinaturaModel {
     private long codigo;
-    private Date inicioVigencia;
-    private Date fimVigencia;
+    private LocalDate inicioVigencia;
+    private LocalDate fimVigencia;
 
-    public AssinaturaModel(long codigo, Date inicioVigencia, Date fimVigencia) {
+    public AssinaturaModel(long codigo, LocalDate inicioVigencia, LocalDate fimVigencia) {
         this.codigo = codigo;
         this.inicioVigencia = inicioVigencia;
         this.fimVigencia = fimVigencia;
@@ -17,15 +17,15 @@ public class AssinaturaModel {
         return this.codigo;
     }
 
-    public Date getInicioVigencia() {
+    public LocalDate getInicioVigencia() {
         return this.inicioVigencia;
     }
 
-    public Date getFimVigencia() {
+    public LocalDate getFimVigencia() {
         return this.fimVigencia;
     }
 
-    public void setFimVigencia(Date fimVigencia) {
+    public void setFimVigencia(LocalDate fimVigencia) {
         this.fimVigencia = fimVigencia;
     }
 

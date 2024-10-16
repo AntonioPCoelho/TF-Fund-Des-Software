@@ -1,14 +1,14 @@
 package com.coelho.sistcontrol.dominio.entidades;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 public class PagamentoModel {
     private long codigo;
     private double valorPago;
-    private Date dataPagamento;
+    private LocalDate dataPagamento;
     private String promocao;
 
-    public PagamentoModel(long codigo, double valorPago, Date dataPagamento, String promocao) {
+    public PagamentoModel(long codigo, double valorPago, LocalDate dataPagamento, String promocao) {
         this.codigo = codigo;
         this.valorPago = valorPago;
         this.dataPagamento = dataPagamento;
@@ -23,7 +23,7 @@ public class PagamentoModel {
         return this.valorPago;
     }
 
-    public Date getDataPagamento() {
+    public LocalDate getDataPagamento() {
         return this.dataPagamento;
     }
 
