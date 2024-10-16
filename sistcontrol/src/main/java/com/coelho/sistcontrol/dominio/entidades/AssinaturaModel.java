@@ -6,11 +6,15 @@ public class AssinaturaModel {
     private long codigo;
     private LocalDate inicioVigencia;
     private LocalDate fimVigencia;
+    private AplicativoModel app;
+    private ClienteModel cliente;
 
-    public AssinaturaModel(long codigo, LocalDate inicioVigencia, LocalDate fimVigencia) {
+    public AssinaturaModel(long codigo, LocalDate inicioVigencia, LocalDate fimVigencia, AplicativoModel app, ClienteModel cliente) {
         this.codigo = codigo;
         this.inicioVigencia = inicioVigencia;
         this.fimVigencia = fimVigencia;
+        this.app = app;
+        this.cliente = cliente;
     }
 
     public long getCodigo() {

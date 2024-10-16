@@ -7,12 +7,14 @@ public class PagamentoModel {
     private double valorPago;
     private LocalDate dataPagamento;
     private String promocao;
+    private AssinaturaModel ass;
 
-    public PagamentoModel(long codigo, double valorPago, LocalDate dataPagamento, String promocao) {
+    public PagamentoModel(long codigo, double valorPago, LocalDate dataPagamento, String promocao, AssinaturaModel ass) {
         this.codigo = codigo;
         this.valorPago = valorPago;
         this.dataPagamento = dataPagamento;
         this.promocao = promocao;
+        this.ass = ass;
     }
 
     public long getCodigo() {
