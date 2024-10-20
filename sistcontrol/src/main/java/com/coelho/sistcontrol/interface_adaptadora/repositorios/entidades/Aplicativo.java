@@ -12,6 +12,12 @@ public class Aplicativo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long codigo;
 
+    public Aplicativo(Long codigo, String nome, double custoMensal) {
+        this.codigo = codigo;
+        this.nome = nome;
+        this.custoMensal = custoMensal;
+    }
+
     private String nome;
 
     private double custoMensal;

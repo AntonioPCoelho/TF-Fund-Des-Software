@@ -26,5 +26,54 @@ public class Pagamento {
 
     private String promocao;
 
-    // Getters e Setters
+    public Pagamento(Long codigo, Assinatura assinatura, double valorPago, LocalDate dataPagamento, String promocao) {
+        this.codigo = codigo;
+        this.assinatura = assinatura;
+        this.valorPago = valorPago;
+        this.dataPagamento = dataPagamento;
+        this.promocao = promocao;
+    }
+
+    public Long getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(Long codigo) {
+        this.codigo = codigo;
+    }
+
+    public Assinatura getAssinatura() {
+        return assinatura;
+    }
+
+    public void setAssinatura(Assinatura assinatura) {
+        this.assinatura = assinatura;
+    }
+
+    public double getValorPago() {
+        return valorPago;
+    }
+
+    public void setValorPago(double valorPago) {
+        this.valorPago = valorPago;
+    }
+
+    public LocalDate getDataPagamento() {
+        return dataPagamento;
+    }
+
+    public void setDataPagamento(LocalDate dataPagamento) {
+        this.dataPagamento = dataPagamento;
+    }
+
+    public String getPromocao() {
+        return promocao;
+    }
+
+    public void setPromocao(String promocao) {
+        this.promocao = promocao;
+    }
+
+
+
 }

@@ -33,6 +33,11 @@ public class PagamentoModel {
         return this.promocao;
     }
 
+    public AssinaturaModel getAss() {
+        return ass;
+    }
+
+
     @Override
     public String toString() {
         return "PagamentoModel [codigo=" + codigo + ", valorPago=" + valorPago + ", dataPagamento=" + dataPagamento

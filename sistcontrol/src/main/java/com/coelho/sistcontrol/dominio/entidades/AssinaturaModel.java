@@ -17,6 +17,22 @@ public class AssinaturaModel {
         this.cliente = cliente;
     }
 
+    public AplicativoModel getApp() {
+        return app;
+    }
+
+    public void setApp(AplicativoModel app) {
+        this.app = app;
+    }
+
+    public ClienteModel getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(ClienteModel cliente) {
+        this.cliente = cliente;
+    }
+
     public long getCodigo() {
         return this.codigo;
     }
