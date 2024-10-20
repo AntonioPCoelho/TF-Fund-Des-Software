@@ -1,4 +1,4 @@
-package com.coelho.sistcontrol.controladores.repositorios.entidades;
+package com.coelho.sistcontrol.interface_adaptadora.repositorios.entidades;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

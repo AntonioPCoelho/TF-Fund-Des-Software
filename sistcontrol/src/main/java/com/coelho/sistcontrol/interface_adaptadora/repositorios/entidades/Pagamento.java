@@ -1,4 +1,4 @@
-package com.coelho.sistcontrol.controladores.repositorios.entidades;
+package com.coelho.sistcontrol.interface_adaptadora.repositorios.entidades;
 
 import java.time.LocalDate;
 
@@ -10,23 +10,21 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity
-public class Assinatura {
+public class Pagamento {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long codigo;
 
     @ManyToOne
-    @JoinColumn(name = "aplicativo_id")
-    private Aplicativo aplicativo;
+    @JoinColumn(name = "assinatura_id")
+    private Assinatura assinatura;
 
-    @ManyToOne
-    @JoinColumn(name = "cliente_id")
-    private Cliente cliente;
+    private double valorPago;
 
-    private LocalDate inicioVigencia;
+    private LocalDate dataPagamento;
 
-    private LocalDate fimVigencia;
+    private String promocao;
 
     // Getters e Setters
 }
