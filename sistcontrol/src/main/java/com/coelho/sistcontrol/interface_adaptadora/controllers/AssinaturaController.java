@@ -1,19 +1,21 @@
 package com.coelho.sistcontrol.interface_adaptadora.controllers;
 
-import org.springframework.http.HttpStatus;
+import java.util.Date;
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.coelho.sistcontrol.dominio.servicos.AssinaturaService;
 import com.coelho.sistcontrol.interface_adaptadora.repositorios.entidades.Assinatura;
+import com.coelho.sistcontrol.interface_adaptadora.repositorios.entidades.Cliente;
+
+
+import com.coelho.sistcontrol.dominio.entidades.AssinaturaModel;
+import org.springframework.web.bind.annotation.*;
+
 
 @RestController
-@RequestMapping("/assinaturas")
+@RequestMapping("/api/assinaturas")
 public class AssinaturaController {
 
     private final AssinaturaService assinaturaService;
@@ -22,16 +24,25 @@ public class AssinaturaController {
         this.assinaturaService = assinaturaService;
     }
 
+    // Cadastrar uma nova assinatura
     @PostMapping
-    public ResponseEntity<Assinatura> criarAssinatura(@RequestBody Assinatura assinatura) {
-        Assinatura novaAssinatura = assinaturaService.criarAssinatura(assinatura);
-        return ResponseEntity.status(HttpStatus.CREATED).body(novaAssinatura);
+    public ResponseEntity<AssinaturaModel> cadastrarAssinatura(@RequestBody AssinaturaModel assinaturaModel) {
+        AssinaturaModel novaAssinatura = assinaturaService.salvarAssinatura(assinaturaModel);
+        return ResponseEntity.ok(novaAssinatura);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Assinatura> buscarPorId(@PathVariable Long id) {
-        return assinaturaService.buscarPorId(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    // Verificar se uma assinatura é válida
+    @GetMapping("/validade")
+    public ResponseEntity<Boolean> isAssinaturaValida(@RequestParam Long clienteId, @RequestParam Long aplicativoId) {
+        boolean isValida = assinaturaService.isAssinaturaValida(clienteId, aplicativoId);
+        return ResponseEntity.ok(isValida);
+    }
+
+    // Listar assinaturas de um aplicativo
+    @GetMapping("/aplicativos/{aplicativoId}/assinantes")
+    public ResponseEntity<List<AssinaturaModel>> listarAssinantesPorAplicativo(@PathVariable Long aplicativoId) {
+        List<AssinaturaModel> assinantes = assinaturaService.listarAssinantesPorAplicativo(aplicativoId);
+        return ResponseEntity.ok(assinantes);
     }
 }
+

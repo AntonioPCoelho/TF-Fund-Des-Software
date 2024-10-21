@@ -1,6 +1,6 @@
 package com.coelho.sistcontrol.interface_adaptadora.repositorios.entidades;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -22,11 +22,11 @@ public class Pagamento {
 
     private double valorPago;
 
-    private LocalDate dataPagamento;
+    private Date dataPagamento;
 
     private String promocao;
 
-    public Pagamento(Long codigo, Assinatura assinatura, double valorPago, LocalDate dataPagamento, String promocao) {
+    public Pagamento(Long codigo, Assinatura assinatura, double valorPago, Date dataPagamento, String promocao) {
         this.codigo = codigo;
         this.assinatura = assinatura;
         this.valorPago = valorPago;
@@ -58,11 +58,11 @@ public class Pagamento {
         this.valorPago = valorPago;
     }
 
-    public LocalDate getDataPagamento() {
+    public Date getDataPagamento() {
         return dataPagamento;
     }
 
-    public void setDataPagamento(LocalDate dataPagamento) {
+    public void setDataPagamento(Date dataPagamento) {
         this.dataPagamento = dataPagamento;
     }
 

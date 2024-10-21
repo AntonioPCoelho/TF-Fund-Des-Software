@@ -1,5 +1,7 @@
 package com.coelho.sistcontrol.interface_adaptadora.repositorios.entidades;
 
+import com.coelho.sistcontrol.dominio.entidades.AplicativoModel;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -44,6 +46,15 @@ public class Aplicativo {
 
     public void setCustoMensal(double custoMensal) {
         this.custoMensal = custoMensal;
+    }
+    public static Aplicativo fromModel(AplicativoModel model) {
+        
+        return new Aplicativo(model.getCodigo(), model.getNome(), model.getCustoMensal());
+        
+    }
+    
+    public AplicativoModel toModel() {
+        return new AplicativoModel(this.codigo, this.nome, this.custoMensal);
     }
 
     

@@ -1,6 +1,8 @@
 package com.coelho.sistcontrol.interface_adaptadora.repositorios.entidades;
 
-import java.time.LocalDate;
+import java.util.Date;
+
+import com.coelho.sistcontrol.dominio.entidades.AssinaturaModel;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -24,16 +26,16 @@ public class Assinatura {
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
-    private LocalDate inicioVigencia;
+    private Date inicioVigencia;
 
-    private LocalDate fimVigencia;
+    private Date fimVigencia;
 
     public Long getCodigo() {
         return codigo;
     }
 
-    public Assinatura(Long codigo, Aplicativo aplicativo, Cliente cliente, LocalDate inicioVigencia,
-            LocalDate fimVigencia) {
+    public Assinatura(Long codigo, Aplicativo aplicativo, Cliente cliente, Date inicioVigencia,
+            Date fimVigencia) {
         this.codigo = codigo;
         this.aplicativo = aplicativo;
         this.cliente = cliente;
@@ -61,21 +63,33 @@ public class Assinatura {
         this.cliente = cliente;
     }
 
-    public LocalDate getInicioVigencia() {
+    public Date getInicioVigencia() {
         return inicioVigencia;
     }
 
-    public void setInicioVigencia(LocalDate inicioVigencia) {
+    public void setInicioVigencia(Date inicioVigencia) {
         this.inicioVigencia = inicioVigencia;
     }
 
-    public LocalDate getFimVigencia() {
+    public Date getFimVigencia() {
         return fimVigencia;
     }
 
-    public void setFimVigencia(LocalDate fimVigencia) {
+    public void setFimVigencia(Date fimVigencia) {
         this.fimVigencia = fimVigencia;
     }
 
-    // Getters e Setters
+    public static Assinatura fromModel(AssinaturaModel model) {
+        return new Assinatura(model.getCodigo(), Aplicativo.fromModel(model.getApp()),
+                Cliente.fromModel(model.getCliente()),
+                model.getInicioVigencia(),
+                model.getFimVigencia());
+    }
+
+    public AssinaturaModel toModel() {
+        return new AssinaturaModel(this.codigo, this.inicioVigencia, this.fimVigencia, this.aplicativo.toModel(),
+                this.cliente.toModel());
+
+    }
+
 }

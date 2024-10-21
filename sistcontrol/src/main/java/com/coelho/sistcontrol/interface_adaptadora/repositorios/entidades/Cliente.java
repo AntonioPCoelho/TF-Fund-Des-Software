@@ -1,5 +1,7 @@
 package com.coelho.sistcontrol.interface_adaptadora.repositorios.entidades;
 
+import com.coelho.sistcontrol.dominio.entidades.ClienteModel;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -47,6 +49,13 @@ public class Cliente {
         this.email = email;
     }
 
-    // Getters e Setters
+    public static Cliente fromModel(ClienteModel model) {
+        return new Cliente(model.getCodigo(), model.getNome(), model.getEmail());
+    }
+
+    public ClienteModel toModel() {
+        return new ClienteModel(this.codigo, this.nome, this.email);
+        
+    }
     
 }
