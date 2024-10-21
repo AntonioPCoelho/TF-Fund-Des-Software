@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.coelho.sistcontrol.dominio.servicos.ClienteService;
-import com.coelho.sistcontrol.interface_adaptadora.repositorios.entidades.Cliente;
 
 
 import com.coelho.sistcontrol.dominio.entidades.ClienteModel;

@@ -1,18 +1,18 @@
 package com.coelho.sistcontrol.interface_adaptadora.controllers;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 
 import com.coelho.sistcontrol.dominio.servicos.AssinaturaService;
-import com.coelho.sistcontrol.interface_adaptadora.repositorios.entidades.Assinatura;
 import com.coelho.sistcontrol.interface_adaptadora.repositorios.entidades.Cliente;
-
 
 import com.coelho.sistcontrol.dominio.entidades.AssinaturaModel;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @RestController
 @RequestMapping("/api/assinaturas")
@@ -44,5 +44,18 @@ public class AssinaturaController {
         List<Cliente> assinantes = assinaturaService.listarAssinantesPorAplicativo(aplicativoId);
         return ResponseEntity.ok(assinantes);
     }
-}
 
+    @PatchMapping("/{id}/atualizarValidade")
+    public ResponseEntity<Void> atualizarValidadeAssinatura(@PathVariable Long id, @RequestParam String novaDataValidade) {
+
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            Date novaData = format.parse(novaDataValidade);
+            assinaturaService.atualizarValidadeAssinatura(id, novaData);
+            return ResponseEntity.ok().build();
+        } catch (ParseException e) {
+            return ResponseEntity.badRequest().build(); // Retorna erro se a data não for válida
+        }
+    }
+
+}

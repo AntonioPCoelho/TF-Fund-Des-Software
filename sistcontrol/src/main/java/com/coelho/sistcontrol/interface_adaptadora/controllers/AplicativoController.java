@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.coelho.sistcontrol.dominio.servicos.AplicativoService;
-import com.coelho.sistcontrol.interface_adaptadora.repositorios.entidades.Aplicativo;
 
 
 import com.coelho.sistcontrol.dominio.entidades.AplicativoModel;
