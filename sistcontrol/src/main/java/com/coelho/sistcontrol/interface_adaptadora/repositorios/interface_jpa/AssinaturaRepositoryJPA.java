@@ -13,7 +13,7 @@ import com.coelho.sistcontrol.interface_adaptadora.repositorios.entidades.Assina
 import com.coelho.sistcontrol.interface_adaptadora.repositorios.entidades.Cliente;
 
 @Repository
-public interface AssinaturaRepository extends JpaRepository<Assinatura, Long> {
+public interface AssinaturaRepositoryJPA extends JpaRepository<Assinatura, Long> {
 
     List<Assinatura> findByCliente(Cliente cliente);
 
