@@ -21,6 +21,7 @@ public interface AssinaturaRepository extends JpaRepository<Assinatura, Long> {
     List<Cliente> findClientesByAplicativo(@Param("aplicativo") Aplicativo aplicativo);
 
     Optional<Assinatura> findByClienteIdAndAplicativoId(Long clienteId, Long aplicativoId);
+    List<Assinatura> findByAplicativoId(Long aplicativoId);
 
     List<Assinatura> findByClienteId(Long clienteId);
 }

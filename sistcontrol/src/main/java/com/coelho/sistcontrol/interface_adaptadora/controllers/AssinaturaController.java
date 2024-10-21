@@ -40,8 +40,8 @@ public class AssinaturaController {
 
     // Listar assinaturas de um aplicativo
     @GetMapping("/aplicativos/{aplicativoId}/assinantes")
-    public ResponseEntity<List<AssinaturaModel>> listarAssinantesPorAplicativo(@PathVariable Long aplicativoId) {
-        List<AssinaturaModel> assinantes = assinaturaService.listarAssinantesPorAplicativo(aplicativoId);
+    public ResponseEntity<List<Cliente>> listarAssinantesPorAplicativo(@PathVariable Long aplicativoId) {
+        List<Cliente> assinantes = assinaturaService.listarAssinantesPorAplicativo(aplicativoId);
         return ResponseEntity.ok(assinantes);
     }
 }

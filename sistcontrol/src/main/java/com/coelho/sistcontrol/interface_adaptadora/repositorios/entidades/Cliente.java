@@ -1,11 +1,16 @@
 package com.coelho.sistcontrol.interface_adaptadora.repositorios.entidades;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.coelho.sistcontrol.dominio.entidades.ClienteModel;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 
 @Entity
@@ -18,6 +23,9 @@ public class Cliente {
     private String nome;
 
     private String email;
+
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Assinatura> assinaturas = new ArrayList<>();
 
     public Cliente(Long codigo, String nome, String email) {
         this.codigo = codigo;
@@ -47,6 +55,19 @@ public class Cliente {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public List<Assinatura> getAssinaturas() {
+        return assinaturas;
+    }
+
+    public void setAssinaturas(List<Assinatura> assinaturas) {
+        this.assinaturas = assinaturas;
+    }
+
+    public void atualizarDados(ClienteModel clienteModel) {
+        this.nome = clienteModel.getNome();
+        this.email = clienteModel.getEmail();
     }
 
     public static Cliente fromModel(ClienteModel model) {
