@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping("/api/aplicativos")
+@RequestMapping("/servcad/aplicativos")
 public class AplicativoController {
 
     private final AplicativoService aplicativoService;

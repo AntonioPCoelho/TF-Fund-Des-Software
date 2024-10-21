@@ -65,5 +65,26 @@ public class AssinaturaService {
         assinatura.setFimVigencia(novaDataFim);
         assinaturaRepository.save(assinatura);
     }
+
+    public List<AssinaturaModel> listarAssinaturasPorTipo(String tipo) {
+        List<Assinatura> assinaturas;
+
+        switch (tipo.toUpperCase()) {
+            case "ATIVAS":
+                assinaturas = assinaturaRepository.findByStatus("ATIVA");
+                break;
+            case "CANCELADAS":
+                assinaturas = assinaturaRepository.findByStatus("CANCELADA");
+                break;
+            case "TODAS":
+            default:
+                assinaturas = assinaturaRepository.findAll();
+                break;
+        }
+        
+        return assinaturas.stream()
+                .map(Assinatura::toModel)
+                .collect(Collectors.toList());
+    }
     
 }

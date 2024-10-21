@@ -15,7 +15,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @RestController
-@RequestMapping("/api/assinaturas")
+@RequestMapping("/servcad/assinaturas")
 public class AssinaturaController {
 
     private final AssinaturaService assinaturaService;
@@ -56,6 +56,13 @@ public class AssinaturaController {
         } catch (ParseException e) {
             return ResponseEntity.badRequest().build(); // Retorna erro se a data não for válida
         }
+    }
+
+    // Lista de assinaturas conforme o tipo (TODAS, ATIVAS ou CANCELADAS)
+    @GetMapping("/{tipo}")
+    public ResponseEntity<List<AssinaturaModel>> listarAssinaturaPorTipo(@PathVariable String tipo) {
+        List<AssinaturaModel> assinaturas = assinaturaService.listarAssinaturasPorTipo(tipo);
+        return ResponseEntity.ok(assinaturas);
     }
 
 }

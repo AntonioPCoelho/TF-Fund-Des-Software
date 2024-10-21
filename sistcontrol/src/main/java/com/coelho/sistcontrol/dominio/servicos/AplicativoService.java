@@ -50,4 +50,5 @@ public class AplicativoService {
         entity.setCustoMensal(novoCusto);  // Atualiza o custo mensal
         aplicativoRepository.save(entity);
     }
+    
 }
