@@ -68,7 +68,7 @@ public class AssinaturaService {
 
     public List<AssinaturaModel> listarAssinaturasPorstatus(String status) {
         List<Assinatura> assinaturas;
-
+        // Trocar a logica para os use cases
         switch (status.toUpperCase()) {
             case "ATIVAS":
                 assinaturas = assinaturaRepository.findByStatus("ATIVA");

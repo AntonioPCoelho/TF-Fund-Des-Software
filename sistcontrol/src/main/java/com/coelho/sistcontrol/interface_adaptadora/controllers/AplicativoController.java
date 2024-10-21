@@ -29,7 +29,7 @@ public class AplicativoController {
         this.aplicativoService = aplicativoService;
     }
 
-    // Listar todos os aplicativos
+    // Listar todos os aplicativos cadastrados
     @GetMapping
     public List<AplicativoModel> listarAplicativos() {
         return aplicativoService.listarAplicativos();

@@ -26,7 +26,7 @@ public class ClienteController {
         this.clienteService = clienteService;
     }
 
-    // Listar todos os clientes
+    // Listar todos os clientes cadastrados
     @GetMapping
     public List<ClienteModel> listarClientes() {
         return clienteService.listarTodos().stream().map(x -> x.toModel()).toList();

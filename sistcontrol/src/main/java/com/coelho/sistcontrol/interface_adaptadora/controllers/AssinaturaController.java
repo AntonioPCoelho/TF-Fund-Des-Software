@@ -24,7 +24,7 @@ public class AssinaturaController {
         this.assinaturaService = assinaturaService;
     }
 
-    // Cadastrar uma nova assinatura
+    // Cria uma assinatura
     @PostMapping
     public ResponseEntity<AssinaturaModel> cadastrarAssinatura(@RequestBody AssinaturaModel assinaturaModel) {
         AssinaturaModel novaAssinatura = assinaturaService.salvarAssinatura(assinaturaModel);

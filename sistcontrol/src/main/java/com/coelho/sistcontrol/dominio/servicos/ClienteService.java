@@ -30,6 +30,8 @@ public class ClienteService {
     public Optional<Cliente> buscarPorId(Long id) {
         return clienteRepository.findById(id);
     }
+
+    // Retorna a lista de assinaturas do cliente informado
     public List<AssinaturaModel> listarAssinaturasPorCliente(Long clienteId) {
         Cliente cliente = clienteRepository.findById(clienteId)
                 .orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
