@@ -3,22 +3,22 @@ package com.coelho.sistcontrol.dominio.entidades;
 import java.util.Date;
 
 public class PagamentoModel {
-    private long codigo;
+    private long Id;
     private double valorPago;
     private Date dataPagamento;
     private String promocao;
     private AssinaturaModel ass;
 
-    public PagamentoModel(long codigo, double valorPago, Date dataPagamento, String promocao, AssinaturaModel ass) {
-        this.codigo = codigo;
+    public PagamentoModel(long Id, double valorPago, Date dataPagamento, String promocao, AssinaturaModel ass) {
+        this.Id = Id;
         this.valorPago = valorPago;
         this.dataPagamento = dataPagamento;
         this.promocao = promocao;
         this.ass = ass;
     }
 
-    public long getCodigo() {
-        return this.codigo;
+    public long getId() {
+        return this.Id;
     }
 
     public double valorPago() {
@@ -40,7 +40,7 @@ public class PagamentoModel {
 
     @Override
     public String toString() {
-        return "PagamentoModel [codigo=" + codigo + ", valorPago=" + valorPago + ", dataPagamento=" + dataPagamento
+        return "PagamentoModel [Id=" + Id + ", valorPago=" + valorPago + ", dataPagamento=" + dataPagamento
                 + ", promocao=" + promocao + "]";
     }
 

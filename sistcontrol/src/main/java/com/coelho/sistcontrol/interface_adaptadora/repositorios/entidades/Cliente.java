@@ -18,7 +18,7 @@ public class Cliente {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long codigo;
+    private Long Id;
 
     private String nome;
 
@@ -27,18 +27,18 @@ public class Cliente {
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Assinatura> assinaturas = new ArrayList<>();
 
-    public Cliente(Long codigo, String nome, String email) {
-        this.codigo = codigo;
+    public Cliente(Long Id, String nome, String email) {
+        this.Id = Id;
         this.nome = nome;
         this.email = email;
     }
 
-    public Long getCodigo() {
-        return codigo;
+    public Long getId() {
+        return Id;
     }
 
-    public void setCodigo(Long codigo) {
-        this.codigo = codigo;
+    public void setId(Long Id) {
+        this.Id = Id;
     }
 
     public String getNome() {
@@ -71,11 +71,11 @@ public class Cliente {
     }
 
     public static Cliente fromModel(ClienteModel model) {
-        return new Cliente(model.getCodigo(), model.getNome(), model.getEmail());
+        return new Cliente(model.getId(), model.getNome(), model.getEmail());
     }
 
     public ClienteModel toModel() {
-        return new ClienteModel(this.codigo, this.nome, this.email);
+        return new ClienteModel(this.Id, this.nome, this.email);
         
     }
     

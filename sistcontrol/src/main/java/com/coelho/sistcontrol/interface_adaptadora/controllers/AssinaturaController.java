@@ -58,10 +58,10 @@ public class AssinaturaController {
         }
     }
 
-    // Lista de assinaturas conforme o tipo (TODAS, ATIVAS ou CANCELADAS)
-    @GetMapping("/{tipo}")
-    public ResponseEntity<List<AssinaturaModel>> listarAssinaturaPorTipo(@PathVariable String tipo) {
-        List<AssinaturaModel> assinaturas = assinaturaService.listarAssinaturasPorTipo(tipo);
+    // Lista de assinaturas conforme o status (TODAS, ATIVAS ou CANCELADAS)
+    @GetMapping("/{status}")
+    public ResponseEntity<List<AssinaturaModel>> listarAssinaturaPorstatus(@PathVariable String status) {
+        List<AssinaturaModel> assinaturas = assinaturaService.listarAssinaturasPorstatus(status);
         return ResponseEntity.ok(assinaturas);
     }
 

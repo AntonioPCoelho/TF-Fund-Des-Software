@@ -16,35 +16,38 @@ public class Assinatura {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long codigo;
+    private Long Id;
 
     @ManyToOne
-    @JoinColumn(name = "aplicativo_id")
+    @JoinColumn(name = "aplicativo_Id")
     private Aplicativo aplicativo;
 
     @ManyToOne
-    @JoinColumn(name = "cliente_id")
+    @JoinColumn(name = "cliente_Id")
     private Cliente cliente;
+
+    private String status;
 
     private Date inicioVigencia;
 
     private Date fimVigencia;
 
-    public Long getCodigo() {
-        return codigo;
+    public Long getId() {
+        return Id;
     }
 
-    public Assinatura(Long codigo, Aplicativo aplicativo, Cliente cliente, Date inicioVigencia,
-            Date fimVigencia) {
-        this.codigo = codigo;
+    public Assinatura(Long Id, Aplicativo aplicativo, Cliente cliente, Date inicioVigencia,
+            Date fimVigencia, String status) {
+        this.Id = Id;
         this.aplicativo = aplicativo;
         this.cliente = cliente;
         this.inicioVigencia = inicioVigencia;
         this.fimVigencia = fimVigencia;
+        this.status = status;
     }
 
-    public void setCodigo(Long codigo) {
-        this.codigo = codigo;
+    public void setId(Long Id) {
+        this.Id = Id;
     }
 
     public Aplicativo getAplicativo() {
@@ -79,16 +82,25 @@ public class Assinatura {
         this.fimVigencia = fimVigencia;
     }
 
+    public String getstatus() {
+        return this.status;
+    }
+
+    public void setstatus(String status) {
+        this.status = status;
+    } 
+
     public static Assinatura fromModel(AssinaturaModel model) {
-        return new Assinatura(model.getCodigo(), Aplicativo.fromModel(model.getApp()),
+        return new Assinatura(model.getId(), Aplicativo.fromModel(model.getApp()),
                 Cliente.fromModel(model.getCliente()),
                 model.getInicioVigencia(),
-                model.getFimVigencia());
+                model.getFimVigencia(),
+                model.getstatus());
     }
 
     public AssinaturaModel toModel() {
-        return new AssinaturaModel(this.codigo, this.inicioVigencia, this.fimVigencia, this.aplicativo.toModel(),
-                this.cliente.toModel());
+        return new AssinaturaModel(this.Id, this.inicioVigencia, this.fimVigencia, this.aplicativo.toModel(),
+                this.cliente.toModel(), this.status);
 
     }
 

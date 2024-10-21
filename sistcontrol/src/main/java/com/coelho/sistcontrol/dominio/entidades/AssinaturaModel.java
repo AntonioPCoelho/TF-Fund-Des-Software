@@ -3,18 +3,20 @@ package com.coelho.sistcontrol.dominio.entidades;
 import java.util.Date;
 
 public class AssinaturaModel {
-    private long codigo;
+    private long Id;
     private Date inicioVigencia;
     private Date fimVigencia;
     private AplicativoModel app;
     private ClienteModel cliente;
+    private String status;
 
-    public AssinaturaModel(long codigo, Date inicioVigencia, Date fimVigencia, AplicativoModel app, ClienteModel cliente) {
-        this.codigo = codigo;
+    public AssinaturaModel(long Id, Date inicioVigencia, Date fimVigencia, AplicativoModel app, ClienteModel cliente, String status) {
+        this.Id = Id;
         this.inicioVigencia = inicioVigencia;
         this.fimVigencia = fimVigencia;
         this.app = app;
         this.cliente = cliente;
+        this.status = status;
     }
 
     public AplicativoModel getApp() {
@@ -33,8 +35,8 @@ public class AssinaturaModel {
         this.cliente = cliente;
     }
 
-    public long getCodigo() {
-        return this.codigo;
+    public long getId() {
+        return this.Id;
     }
 
     public Date getInicioVigencia() {
@@ -49,9 +51,17 @@ public class AssinaturaModel {
         this.fimVigencia = fimVigencia;
     }
 
+    public String getstatus() {
+        return status;
+    }
+
+    public void setstatus(String status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
-        return "AssinaturaModel [codigo=" + codigo + ", inicioVigencia=" + inicioVigencia + ", fimVigencia="
+        return "AssinaturaModel [Id=" + Id + ", inicioVigencia=" + inicioVigencia + ", fimVigencia="
                 + fimVigencia + "]";
     }
 

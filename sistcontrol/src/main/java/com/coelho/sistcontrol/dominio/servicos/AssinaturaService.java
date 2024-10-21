@@ -66,10 +66,10 @@ public class AssinaturaService {
         assinaturaRepository.save(assinatura);
     }
 
-    public List<AssinaturaModel> listarAssinaturasPorTipo(String tipo) {
+    public List<AssinaturaModel> listarAssinaturasPorstatus(String status) {
         List<Assinatura> assinaturas;
 
-        switch (tipo.toUpperCase()) {
+        switch (status.toUpperCase()) {
             case "ATIVAS":
                 assinaturas = assinaturaRepository.findByStatus("ATIVA");
                 break;

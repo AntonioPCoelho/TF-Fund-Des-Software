@@ -1,18 +1,18 @@
 package com.coelho.sistcontrol.dominio.entidades;
 
 public class ClienteModel {
-    private long codigo;
+    private long Id;
     private String nome;
     private String email;
 
-    public ClienteModel(long codigo, String nome, String email) {
-        this.codigo = codigo;
+    public ClienteModel(long Id, String nome, String email) {
+        this.Id = Id;
         this.nome = nome;
         this.email = email;
     }
 
-    public long getCodigo() {
-        return this.codigo;
+    public long getId() {
+        return this.Id;
     }
 
     public String getNome() {
@@ -25,7 +25,7 @@ public class ClienteModel {
 
     @Override
     public String toString() {
-        return "ClienteModel [codigo=" + codigo + ", nome=" + nome + ", email=" + email + "]";
+        return "ClienteModel [Id=" + Id + ", nome=" + nome + ", email=" + email + "]";
     }
 
 }

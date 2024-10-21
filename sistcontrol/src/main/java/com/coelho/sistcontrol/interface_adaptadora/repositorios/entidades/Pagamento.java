@@ -14,10 +14,10 @@ public class Pagamento {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long codigo;
+    private Long Id;
 
     @ManyToOne
-    @JoinColumn(name = "assinatura_id")
+    @JoinColumn(name = "assinatura_Id")
     private Assinatura assinatura;
 
     private double valorPago;
@@ -26,20 +26,20 @@ public class Pagamento {
 
     private String promocao;
 
-    public Pagamento(Long codigo, Assinatura assinatura, double valorPago, Date dataPagamento, String promocao) {
-        this.codigo = codigo;
+    public Pagamento(Long Id, Assinatura assinatura, double valorPago, Date dataPagamento, String promocao) {
+        this.Id = Id;
         this.assinatura = assinatura;
         this.valorPago = valorPago;
         this.dataPagamento = dataPagamento;
         this.promocao = promocao;
     }
 
-    public Long getCodigo() {
-        return codigo;
+    public Long getId() {
+        return Id;
     }
 
-    public void setCodigo(Long codigo) {
-        this.codigo = codigo;
+    public void setId(Long Id) {
+        this.Id = Id;
     }
 
     public Assinatura getAssinatura() {
