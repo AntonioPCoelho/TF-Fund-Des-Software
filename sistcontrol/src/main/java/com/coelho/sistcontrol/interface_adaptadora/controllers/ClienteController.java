@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping("/servcad/clientes")
+@RequestMapping("/servcad")
 public class ClienteController {
 
     private final ClienteService clienteService;
@@ -27,27 +27,13 @@ public class ClienteController {
     }
 
     // Listar todos os clientes cadastrados
-    @GetMapping
+    @GetMapping("/clientes")
     public List<ClienteModel> listarClientes() {
         return clienteService.listarTodos().stream().map(x -> x.toModel()).toList();
     }
 
-    // Cadastrar um novo cliente
-    @PostMapping
-    public ResponseEntity<ClienteModel> cadastrarCliente(@RequestBody ClienteModel clienteModel) {
-        ClienteModel novoCliente = clienteService.cadastrar(clienteModel).toModel();
-        return ResponseEntity.ok(novoCliente);
-    }
-
-    // Editar um cliente existente
-    @PutMapping("/{id}")
-    public ResponseEntity<ClienteModel> editarCliente(@PathVariable Long id, @RequestBody ClienteModel clienteModel) {
-        ClienteModel atualizado = clienteService.editarCliente(id, clienteModel);
-        return ResponseEntity.ok(atualizado);
-    }
-
-    // Listar assinaturas de um cliente
-    @GetMapping("/{id}/assinaturas")
+    // Listar assinaturas do cliente informado
+    @GetMapping("/asscli/{id}")
     public ResponseEntity<?> listarAssinaturasPorCliente(@PathVariable Long id) {
         return ResponseEntity.ok(clienteService.listarAssinaturasPorCliente(id));
     }

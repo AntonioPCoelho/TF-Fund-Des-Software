@@ -10,12 +10,8 @@ import com.coelho.sistcontrol.interface_adaptadora.repositorios.entidades.Client
 import com.coelho.sistcontrol.dominio.entidades.AssinaturaModel;
 import org.springframework.web.bind.annotation.*;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 @RestController
-@RequestMapping("/servcad/assinaturas")
+@RequestMapping("/servcad")
 public class AssinaturaController {
 
     private final AssinaturaService assinaturaService;
@@ -25,46 +21,31 @@ public class AssinaturaController {
     }
 
     // Cria uma assinatura
-    /*
-    @PostMapping
-    public ResponseEntity<AssinaturaModel> cadastrarAssinatura(@RequestBody Long clienteId, Long aplicativoId) {
-        AssinaturaModel novaAssinatura = assinaturaService.salvarAssinatura(assinaturaModel);
+    @PostMapping("/assinaturas")
+    public ResponseEntity<AssinaturaModel> cadastrarAssinatura(@PathVariable Long clienteId, @PathVariable Long aplicativoId, @RequestBody AssinaturaModel assinaturaModel) {
+        AssinaturaModel novaAssinatura = assinaturaService.salvarAssinatura(clienteId, aplicativoId, assinaturaModel);
         return ResponseEntity.ok(novaAssinatura);
     }
-    */
 
-    // Verificar se uma assinatura é válida
-    @GetMapping("/validade")
-    public ResponseEntity<Boolean> isAssinaturaValida(@RequestParam Long clienteId, @RequestParam Long aplicativoId) {
-        boolean isValida = assinaturaService.isAssinaturaValida(clienteId, aplicativoId);
-        return ResponseEntity.ok(isValida);
+    // Lista de assinaturas conforme o status (TODAS, ATIVAS ou CANCELADAS)
+    @GetMapping("/assinaturas/{tipo}")
+    public ResponseEntity<List<AssinaturaModel>> listarAssinaturaPorstatus(@PathVariable String status) {
+        List<AssinaturaModel> assinaturas = assinaturaService.listarAssinaturasPorstatus(status);
+        return ResponseEntity.ok(assinaturas);
     }
 
     // Listar assinaturas de um aplicativo
-    @GetMapping("/aplicativos/{aplicativoId}/assinantes")
+    @GetMapping("/assapp/{aplicativoId}")
     public ResponseEntity<List<Cliente>> listarAssinantesPorAplicativo(@PathVariable Long aplicativoId) {
         List<Cliente> assinantes = assinaturaService.listarAssinantesPorAplicativo(aplicativoId);
         return ResponseEntity.ok(assinantes);
     }
 
-    @PatchMapping("/{id}/atualizarValidade")
-    public ResponseEntity<Void> atualizarValidadeAssinatura(@PathVariable Long id, @RequestParam String novaDataValidade) {
-
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        try {
-            Date novaData = format.parse(novaDataValidade);
-            assinaturaService.atualizarValidadeAssinatura(id, novaData);
-            return ResponseEntity.ok().build();
-        } catch (ParseException e) {
-            return ResponseEntity.badRequest().build(); // Retorna erro se a data não for válida
-        }
-    }
-
-    // Lista de assinaturas conforme o status (TODAS, ATIVAS ou CANCELADAS)
-    @GetMapping("/{tipo}")
-    public ResponseEntity<List<AssinaturaModel>> listarAssinaturaPorstatus(@PathVariable String status) {
-        List<AssinaturaModel> assinaturas = assinaturaService.listarAssinaturasPorstatus(status);
-        return ResponseEntity.ok(assinaturas);
-    }
+     // Retorna se a assinatura questionada permanece ativa
+     @GetMapping("/assinvalida/{id}")
+     public ResponseEntity<Boolean> isAssinaturaValida(@RequestParam Long codass) {
+         boolean isValida = assinaturaService.isAssinaturaValida(codass);
+         return ResponseEntity.ok(isValida);
+     }
 
 }

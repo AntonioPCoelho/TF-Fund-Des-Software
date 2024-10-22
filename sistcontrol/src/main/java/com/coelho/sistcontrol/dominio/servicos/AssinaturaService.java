@@ -26,16 +26,17 @@ public class AssinaturaService {
         this.aplicativoRepository = aplicativoRepository;
     }
 
-    public AssinaturaModel salvarAssinatura(AssinaturaModel assinaturaModel) {
+    public AssinaturaModel salvarAssinatura(Long clienteId, Long aplicativoId, AssinaturaModel assinaturaModel) {
         Assinatura entity = Assinatura.fromModel(assinaturaModel);
+        entity.setId(clienteId);
+        entity.setId(aplicativoId);
         Assinatura salvo = assinaturaRepository.save(entity);
         return salvo.toModel();
     }
 
     // Verificar se uma assinatura é válida (com java.util.Date)
-    public boolean isAssinaturaValida(Long clienteId, Long aplicativoId) {
-        Optional<Assinatura> assinaturaOpt = assinaturaRepository.findByClienteIdAndAplicativoId(clienteId,
-                aplicativoId);
+    public boolean isAssinaturaValida(Long codass) {
+        Optional<Assinatura> assinaturaOpt = assinaturaRepository.findByAssinaturaId(codass);
         if (assinaturaOpt.isPresent()) {
             Assinatura assinatura = assinaturaOpt.get();
             return assinatura.getFimVigencia().after(new Date()); // Verifica se a vigência é posterior à data atual

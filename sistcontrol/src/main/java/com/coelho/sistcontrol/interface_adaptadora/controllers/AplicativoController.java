@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping("/servcad/aplicativos")
+@RequestMapping("/servcad")
 public class AplicativoController {
 
     private final AplicativoService aplicativoService;
@@ -27,16 +27,17 @@ public class AplicativoController {
     }
 
     // Listar todos os aplicativos cadastrados
-    @GetMapping
+    @GetMapping("/aplicativos")
     public List<AplicativoModel> listarAplicativos() {
         return aplicativoService.listarAplicativos();
     }
 
     // Atualizar o valor do custo mensal de um aplicativo
-    @PatchMapping("/atualizacusto/{id}")
+    @PostMapping("/aplicativos/atualizacusto/{id}")
     public ResponseEntity<Void> atualizarCustoMensal(@PathVariable Long id, @RequestParam double novoCusto) {
         aplicativoService.atualizarCustoMensal(id, novoCusto);
         return ResponseEntity.ok().build();
     }
+
 }
 
