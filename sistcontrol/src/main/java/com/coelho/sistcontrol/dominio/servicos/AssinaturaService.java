@@ -12,6 +12,7 @@ import com.coelho.sistcontrol.dominio.entidades.AssinaturaModel;
 import com.coelho.sistcontrol.dominio.entidades.ClienteModel;
 import com.coelho.sistcontrol.dominio.interfRepositorios.IAplicativoRepository;
 import com.coelho.sistcontrol.dominio.interfRepositorios.IAssinaturaRepository;
+import com.coelho.sistcontrol.interface_adaptadora.repositorios.entidades.Assinatura;
 
 @Service
 public class AssinaturaService {
@@ -30,10 +31,14 @@ public class AssinaturaService {
         return salvo;
     }
 
-    public boolean isAssinaturaValida(Long clienteId, Long aplicativoId) {
-        Optional<AssinaturaModel> assinaturaOpt = assinaturaRepository.findByClienteIdAndAplicativoId(clienteId,
-                aplicativoId);
-        return assinaturaOpt.map(assinatura -> assinatura.getFimVigencia().after(new Date())).orElse(false);
+    // Verificar se uma assinatura é válida (com java.util.Date)
+    public boolean isAssinaturaValida(Long id) {
+        Optional<Assinatura> assinaturaOpt = assinaturaRepository.findByid(id);
+        if (assinaturaOpt.isPresent()) {
+            Assinatura assinatura = assinaturaOpt.get();
+            return assinatura.getFimVigencia().after(new Date()); // Verifica se a vigência é posterior à data atual
+        }
+        return false;
     }
 
     public List<AssinaturaModel> listarAssinaturasPorCliente(Long clienteId) {
@@ -47,8 +52,8 @@ public class AssinaturaService {
         return assinaturaRepository.findClientesByAplicativo(aplicativo.getId());
     }
 
-    public void atualizarValidadeAssinatura(Long assinaturaId, Date novaDataFim) {
-        AssinaturaModel assinatura = assinaturaRepository.findById(assinaturaId)
+    public void atualizarValidadeAssinatura(Long id, Date novaDataFim) {
+        AssinaturaModel assinatura = assinaturaRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Assinatura não encontrada"));
         assinatura.setFimVigencia(novaDataFim);
         assinaturaRepository.save(assinatura);

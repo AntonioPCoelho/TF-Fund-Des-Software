@@ -1,6 +1,7 @@
 package com.coelho.sistcontrol.interface_adaptadora.repositorios.entidades;
 
 import java.util.Date;
+import com.coelho.sistcontrol.dominio.entidades.PagamentoModel;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -74,6 +75,13 @@ public class Pagamento {
         this.promocao = promocao;
     }
 
+    public static Pagamento fromModel(PagamentoModel model) {
+        return new Pagamento(model.getId(), Assinatura.fromModel(model.getAssinatura()), model.getValorPago(), model.getDataPagamento(), model.getPromocao());
+    }
 
+    public PagamentoModel toModel() {
+        return new PagamentoModel(this.Id, this.assinatura.toModel(), this.valorPago, this.dataPagamento, this.promocao);
+        
+    }
 
 }

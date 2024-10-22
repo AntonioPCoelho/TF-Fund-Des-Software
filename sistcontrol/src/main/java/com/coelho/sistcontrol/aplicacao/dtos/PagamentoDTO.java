@@ -1,5 +1,62 @@
 package com.coelho.sistcontrol.aplicacao.dtos;
 
+import java.util.Date;
+
+import com.coelho.sistcontrol.dominio.entidades.AssinaturaModel;
+
 public class PagamentoDTO {
-    
+
+    private long id;
+    private double valorPago;
+    private Date dataPagamento;
+    private String promocao;
+    private AssinaturaModel ass;
+
+    public PagamentoDTO(long id, double valorPago, Date dataPagamento, String promocao, AssinaturaModel ass) {
+        this.id = id;
+        this.valorPago = valorPago;
+        this.dataPagamento = dataPagamento;
+        this.promocao = promocao;
+        this.ass = ass;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public double getValorPago() {
+        return valorPago;
+    }
+
+    public void setValorPago(double valorPago) {
+        this.valorPago = valorPago;
+    }
+
+    public Date getDataPagamento() {
+        return dataPagamento;
+    }
+
+    public void setDataPagamento(Date dataPagamento) {
+        this.dataPagamento = dataPagamento;
+    }
+
+    public String getPromocao() {
+        return promocao;
+    }
+
+    public void setPromocao(String promocao) {
+        this.promocao = promocao;
+    }
+
+    public AssinaturaModel getass() {
+        return ass;
+    }
+
+    public void setass(AssinaturaModel ass) {
+        this.ass = ass;
+    }
 }

@@ -7,21 +7,21 @@ public class PagamentoModel {
     private double valorPago;
     private Date dataPagamento;
     private String promocao;
-    private AssinaturaModel ass;
+    private AssinaturaModel assinatura;
 
-    public PagamentoModel(long Id, double valorPago, Date dataPagamento, String promocao, AssinaturaModel ass) {
+    public PagamentoModel(long Id, AssinaturaModel assinatura, double valorPago, Date dataPagamento, String promocao) {
         this.Id = Id;
+        this.assinatura = assinatura;
         this.valorPago = valorPago;
         this.dataPagamento = dataPagamento;
         this.promocao = promocao;
-        this.ass = ass;
     }
 
     public long getId() {
         return this.Id;
     }
 
-    public double valorPago() {
+    public double getValorPago() {
         return this.valorPago;
     }
 
@@ -33,8 +33,8 @@ public class PagamentoModel {
         return this.promocao;
     }
 
-    public AssinaturaModel getAss() {
-        return ass;
+    public AssinaturaModel getAssinatura() {
+        return assinatura;
     }
 
 

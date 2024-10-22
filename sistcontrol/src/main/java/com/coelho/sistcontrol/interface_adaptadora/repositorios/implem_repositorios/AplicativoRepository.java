@@ -3,11 +3,14 @@ package com.coelho.sistcontrol.interface_adaptadora.repositorios.implem_reposito
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.stereotype.Component;
+
 import com.coelho.sistcontrol.dominio.entidades.AplicativoModel;
 import com.coelho.sistcontrol.dominio.interfRepositorios.IAplicativoRepository;
 import com.coelho.sistcontrol.interface_adaptadora.repositorios.entidades.Aplicativo;
 import com.coelho.sistcontrol.interface_adaptadora.repositorios.interface_jpa.AplicativoRepositoryJPA;
 
+@Component
 public class AplicativoRepository implements IAplicativoRepository{
     private AplicativoRepositoryJPA aplicativos;
 

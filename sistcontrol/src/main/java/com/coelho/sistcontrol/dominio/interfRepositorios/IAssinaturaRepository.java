@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import com.coelho.sistcontrol.dominio.entidades.AssinaturaModel;
 import com.coelho.sistcontrol.dominio.entidades.ClienteModel;
+import com.coelho.sistcontrol.interface_adaptadora.repositorios.entidades.Assinatura;
 
 
 public interface IAssinaturaRepository {
@@ -16,5 +17,6 @@ public interface IAssinaturaRepository {
     List<AssinaturaModel> findByClienteId(Long clienteId);
     List<AssinaturaModel> findByStatus(String status);
     List<ClienteModel> findClientesByAplicativo(Long appId);
+    Optional<Assinatura> findByid(Long id);
     
 }

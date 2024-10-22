@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.coelho.sistcontrol.aplicacao.dtos.PagamentoDTO;
 import com.coelho.sistcontrol.dominio.servicos.PagamentoService;
 
 @RestController
@@ -18,12 +19,10 @@ public class PagamentoController {
         this.pagamentoService = pagamentoService;
     }
 
-    /*
     // Solicitar o registro de um pagamento
     @PostMapping()
     public ResponseEntity<PagamentoDTO> registrarPagamento(@RequestBody PagamentoDTO pagamentoDTO) {
         PagamentoDTO resultado = pagamentoService.registrarPagamento(pagamentoDTO);
         return ResponseEntity.ok(resultado);
     }
-    */
 }

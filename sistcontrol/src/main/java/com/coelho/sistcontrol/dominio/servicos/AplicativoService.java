@@ -37,7 +37,6 @@ public class AplicativoService {
     }
 
     // Atualizar o custo mensal de um aplicativo
-    // Atualizar o custo mensal de um aplicativo
     public AplicativoModel atualizarCustoMensal(Long id, double novoCusto) {
         AplicativoModel entity = aplicativoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Aplicativo não encontrado"));

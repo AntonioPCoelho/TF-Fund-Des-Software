@@ -26,4 +26,5 @@ public interface AssinaturaRepositoryJPA extends JpaRepository<Assinatura, Long>
 
     List<Assinatura> findByClienteId(Long clienteId);
     List<Assinatura> findByStatus(String status);
+    Optional<Assinatura> findByid(Long id);
 }

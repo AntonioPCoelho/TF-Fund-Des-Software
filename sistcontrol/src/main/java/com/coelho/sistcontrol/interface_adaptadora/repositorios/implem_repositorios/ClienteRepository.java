@@ -3,11 +3,14 @@ package com.coelho.sistcontrol.interface_adaptadora.repositorios.implem_reposito
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.stereotype.Component;
+
 import com.coelho.sistcontrol.dominio.entidades.ClienteModel;
 import com.coelho.sistcontrol.dominio.interfRepositorios.IClienteRepository;
 import com.coelho.sistcontrol.interface_adaptadora.repositorios.entidades.Cliente;
 import com.coelho.sistcontrol.interface_adaptadora.repositorios.interface_jpa.ClienteRepositoryJPA;
 
+@Component
 public class ClienteRepository implements IClienteRepository{
     private ClienteRepositoryJPA clientes;
 
