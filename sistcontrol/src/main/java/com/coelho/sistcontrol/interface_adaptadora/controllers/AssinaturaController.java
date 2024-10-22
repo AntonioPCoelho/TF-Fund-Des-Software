@@ -25,11 +25,13 @@ public class AssinaturaController {
     }
 
     // Cria uma assinatura
+    /*
     @PostMapping
-    public ResponseEntity<AssinaturaModel> cadastrarAssinatura(@RequestBody AssinaturaModel assinaturaModel) {
+    public ResponseEntity<AssinaturaModel> cadastrarAssinatura(@RequestBody Long clienteId, Long aplicativoId) {
         AssinaturaModel novaAssinatura = assinaturaService.salvarAssinatura(assinaturaModel);
         return ResponseEntity.ok(novaAssinatura);
     }
+    */
 
     // Verificar se uma assinatura é válida
     @GetMapping("/validade")
@@ -59,7 +61,7 @@ public class AssinaturaController {
     }
 
     // Lista de assinaturas conforme o status (TODAS, ATIVAS ou CANCELADAS)
-    @GetMapping("/{status}")
+    @GetMapping("/{tipo}")
     public ResponseEntity<List<AssinaturaModel>> listarAssinaturaPorstatus(@PathVariable String status) {
         List<AssinaturaModel> assinaturas = assinaturaService.listarAssinaturasPorstatus(status);
         return ResponseEntity.ok(assinaturas);

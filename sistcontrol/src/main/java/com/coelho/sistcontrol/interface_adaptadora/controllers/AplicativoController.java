@@ -5,9 +5,6 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -35,22 +32,8 @@ public class AplicativoController {
         return aplicativoService.listarAplicativos();
     }
 
-    // Cadastrar um novo aplicativo
-    @PostMapping
-    public ResponseEntity<AplicativoModel> cadastrarAplicativo(@RequestBody AplicativoModel aplicativoModel) {
-        AplicativoModel novoAplicativo = aplicativoService.salvarAplicativo(aplicativoModel);
-        return ResponseEntity.ok(novoAplicativo);
-    }
-
-    // Editar um aplicativo
-    @PutMapping("/{id}")
-    public ResponseEntity<AplicativoModel> editarAplicativo(@PathVariable Long id, @RequestBody AplicativoModel aplicativoModel) {
-        AplicativoModel atualizado = aplicativoService.editarAplicativo(id, aplicativoModel);
-        return ResponseEntity.ok(atualizado);
-    }
-
     // Atualizar o valor do custo mensal de um aplicativo
-    @PatchMapping("/{id}/custoMensal")
+    @PatchMapping("/atualizacusto/{id}")
     public ResponseEntity<Void> atualizarCustoMensal(@PathVariable Long id, @RequestParam double novoCusto) {
         aplicativoService.atualizarCustoMensal(id, novoCusto);
         return ResponseEntity.ok().build();
