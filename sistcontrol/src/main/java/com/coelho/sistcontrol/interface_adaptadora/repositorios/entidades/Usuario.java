@@ -10,6 +10,7 @@ public class Usuario {
     private String usuario;
 
     private String senha;
+    protected Usuario(){}
 
     public String getUsuario() {
         return usuario;

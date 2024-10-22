@@ -19,6 +19,7 @@ public class Aplicativo {
         this.nome = nome;
         this.custoMensal = custoMensal;
     }
+    protected Aplicativo(){}
 
     private String nome;
 

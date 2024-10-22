@@ -40,14 +40,14 @@ public class AssinaturaController {
     }
 
     // Listar assinaturas de um aplicativo
-    @GetMapping("/assapp/{codapp}")
+    @GetMapping("/assapp/{aplicativoId}")
     public ResponseEntity<List<ClienteModel>> listarAssinantesPorAplicativo(@PathVariable Long aplicativoId) {
         List<ClienteModel> assinantes = assinaturaService.listarAssinantesPorAplicativo(aplicativoId);
         return ResponseEntity.ok(assinantes);
     }
 
     // Lista de assinaturas conforme o status (TODAS, ATIVAS ou CANCELADAS)
-    @GetMapping("/assinaturas/{tipo}")
+    @GetMapping("/assinaturas/{tipo}") // GOOD
     public ResponseEntity<List<AssinaturaDTO>> listarAssinaturasPorTipo(@PathVariable String tipo) {
         List<AssinaturaDTO> assinaturas = assinaturaService.listarAssinaturasPorstatus(tipo).stream()
             .map(assinatura -> new AssinaturaDTO(assinatura.getId(), assinatura.getInicioVigencia(), assinatura.getFimVigencia(),

@@ -45,6 +45,8 @@ public class Assinatura {
         this.fimVigencia = fimVigencia;
         this.status = status;
     }
+    protected Assinatura(){}
+
 
     public void setId(Long Id) {
         this.Id = Id;

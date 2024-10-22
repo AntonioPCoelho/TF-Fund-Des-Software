@@ -33,6 +33,8 @@ public class Cliente {
         this.email = email;
     }
 
+    protected Cliente(){}
+
     public Long getId() {
         return Id;
     }
