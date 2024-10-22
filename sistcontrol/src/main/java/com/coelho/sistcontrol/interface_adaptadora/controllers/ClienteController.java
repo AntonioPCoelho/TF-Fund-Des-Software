@@ -13,7 +13,7 @@ import com.coelho.sistcontrol.dominio.entidades.ClienteModel;
 
 
 @RestController
-@RequestMapping("/servcad/clientes")
+@RequestMapping("/servcad")
 public class ClienteController {
 
     private final ClienteService clienteService;
@@ -23,7 +23,7 @@ public class ClienteController {
     }
 
     // Endpoint para listar todos os clientes
-    @GetMapping
+    @GetMapping("/clientes")
     public ResponseEntity<List<ClienteDTO>> listarTodos() {
         List<ClienteModel> clientes = clienteService.listarTodos();
         

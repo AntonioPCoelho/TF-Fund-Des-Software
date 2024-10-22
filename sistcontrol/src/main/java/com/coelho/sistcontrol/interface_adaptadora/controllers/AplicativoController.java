@@ -14,7 +14,7 @@ import com.coelho.sistcontrol.dominio.servicos.AplicativoService;
 import com.coelho.sistcontrol.aplicacao.dtos.AplicativoDTO;
 import com.coelho.sistcontrol.dominio.entidades.AplicativoModel;
 @RestController
-@RequestMapping("/servcad/aplicativos")
+@RequestMapping("/servcad")
 public class AplicativoController {
 
     private final AplicativoService aplicativoService;
@@ -24,7 +24,7 @@ public class AplicativoController {
     }
 
     // Endpoint para listar todos os aplicativos
-    @GetMapping
+    @GetMapping("/aplicativos")
     public ResponseEntity<List<AplicativoDTO>> listarTodos() {
         List<AplicativoModel> aplicativos = aplicativoService.listarAplicativos();
         
@@ -35,7 +35,8 @@ public class AplicativoController {
         
         return ResponseEntity.ok(aplicativosDTO);
     }
-    @PostMapping("/atualizacusto/{idAplicativo}")
+
+    @PostMapping("/aplicativos/atualizacusto/{idAplicativo}")
     public ResponseEntity<AplicativoDTO> atualizarCusto(@PathVariable Long idAplicativo, @RequestBody double custo) {
         // Atualiza o custo mensal e obtém o aplicativo atualizado
         AplicativoModel aplicativoAtualizado = aplicativoService.atualizarCustoMensal(idAplicativo, custo);
@@ -46,43 +47,3 @@ public class AplicativoController {
         return ResponseEntity.ok(aplicativoDTO);
     }
 }
-
-
-// @RestController
-// @RequestMapping("/servcad/aplicativos")
-// public class AplicativoController {
-
-//     private final AplicativoService aplicativoService;
-
-//     public AplicativoController(AplicativoService aplicativoService) {
-//         this.aplicativoService = aplicativoService;
-//     }
-
-//     // Listar todos os aplicativos cadastrados
-//     @GetMapping
-//     public List<AplicativoModel> listarAplicativos() {
-//         return aplicativoService.listarAplicativos();
-//     }
-
-//     // Cadastrar um novo aplicativo
-//     @PostMapping
-//     public ResponseEntity<AplicativoModel> cadastrarAplicativo(@RequestBody AplicativoModel aplicativoModel) {
-//         AplicativoModel novoAplicativo = aplicativoService.salvarAplicativo(aplicativoModel);
-//         return ResponseEntity.ok(novoAplicativo);
-//     }
-
-//     // Editar um aplicativo
-//     @PutMapping("/{id}")
-//     public ResponseEntity<AplicativoModel> editarAplicativo(@PathVariable Long id, @RequestBody AplicativoModel aplicativoModel) {
-//         AplicativoModel atualizado = aplicativoService.editarAplicativo(id, aplicativoModel);
-//         return ResponseEntity.ok(atualizado);
-//     }
-
-//     // Atualizar o valor do custo mensal de um aplicativo
-//     @PatchMapping("/{id}/custoMensal")
-//     public ResponseEntity<Void> atualizarCustoMensal(@PathVariable Long id, @RequestParam double novoCusto) {
-//         aplicativoService.atualizarCustoMensal(id, novoCusto);
-//         return ResponseEntity.ok().build();
-//     }
-// }
-
