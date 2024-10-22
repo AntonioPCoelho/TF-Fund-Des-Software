@@ -31,18 +31,19 @@ public class AplicativoService {
     public AplicativoModel editarAplicativo(Long id, AplicativoModel aplicativoModel) {
         AplicativoModel entity = aplicativoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Aplicativo não encontrado"));
-        
+
         AplicativoModel atualizado = aplicativoRepository.save(aplicativoModel);
         return atualizado;
     }
 
     // Atualizar o custo mensal de um aplicativo
-    public void atualizarCustoMensal(Long id, double novoCusto) {
+    // Atualizar o custo mensal de um aplicativo
+    public AplicativoModel atualizarCustoMensal(Long id, double novoCusto) {
         AplicativoModel entity = aplicativoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Aplicativo não encontrado"));
-        
+
         entity.setCustoMensal(novoCusto);
-        aplicativoRepository.save(entity);
+        return aplicativoRepository.save(entity); // Retorna o aplicativo atualizado
     }
-    
+
 }
