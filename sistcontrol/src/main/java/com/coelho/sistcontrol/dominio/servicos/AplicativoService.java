@@ -19,6 +19,22 @@ public class AplicativoService {
         this.aplicativoRepository = aplicativoRepository;
     }
 
+    // Salvar um novo aplicativo
+    public AplicativoModel salvarAplicativo(AplicativoModel aplicativoModel) {
+        Aplicativo entity = Aplicativo.fromModel(aplicativoModel); // Conversão de model para entity
+        Aplicativo salvo = aplicativoRepository.save(entity);
+        return salvo.toModel();
+    }
+
+    // Editar um aplicativo
+    public AplicativoModel editarAplicativo(Long id, AplicativoModel aplicativoModel) {
+        Aplicativo entity = aplicativoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Aplicativo não encontrado"));
+        
+        Aplicativo atualizado = aplicativoRepository.save(Aplicativo.fromModel(aplicativoModel));
+        return atualizado.toModel();
+    }
+
     // Listar todos os aplicativos
     public List<AplicativoModel> listarAplicativos() {
         return aplicativoRepository.findAll().stream()

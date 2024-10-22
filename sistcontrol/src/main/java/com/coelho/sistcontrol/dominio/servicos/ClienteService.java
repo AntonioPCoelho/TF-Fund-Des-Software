@@ -40,6 +40,7 @@ public class ClienteService {
                 .map(assinatura -> assinatura.toModel())
                 .toList();
     }
+    
     public ClienteModel editarCliente(Long id, ClienteModel clienteModel) {
         Cliente entity = clienteRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Cliente não encontrado"));

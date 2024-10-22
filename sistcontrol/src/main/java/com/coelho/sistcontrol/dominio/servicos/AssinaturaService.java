@@ -44,8 +44,6 @@ public class AssinaturaService {
         return false;
     }
 
-    
-
     public List<AssinaturaModel> listarAssinaturasPorCliente(Long clienteId) {
         return assinaturaRepository.findByClienteId(clienteId).stream()
                 .map(Assinatura::toModel)
