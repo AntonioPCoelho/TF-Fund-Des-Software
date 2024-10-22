@@ -8,7 +8,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import com.coelho.sistcontrol.interface_adaptadora.repositorios.entidades.Aplicativo;
 import com.coelho.sistcontrol.interface_adaptadora.repositorios.entidades.Assinatura;
 import com.coelho.sistcontrol.interface_adaptadora.repositorios.entidades.Cliente;
 
@@ -17,8 +16,9 @@ public interface AssinaturaRepositoryJPA extends JpaRepository<Assinatura, Long>
 
     List<Assinatura> findByCliente(Cliente cliente);
 
-    @Query("SELECT a.cliente FROM Assinatura a WHERE a.aplicativo = :aplicativo")
-    List<Cliente> findClientesByAplicativo(@Param("aplicativo") Aplicativo aplicativo);
+    @Query("SELECT a.cliente FROM Assinatura a WHERE a.aplicativo.id = :aplicativoId")
+    List<Cliente> findClientesByAplicativoId(@Param("aplicativoId") Long aplicativoId);
+
 
     Optional<Assinatura> findByClienteIdAndAplicativoId(Long clienteId, Long aplicativoId);
     

@@ -7,45 +7,46 @@ import org.springframework.stereotype.Service;
 
 import com.coelho.sistcontrol.dominio.entidades.AssinaturaModel;
 import com.coelho.sistcontrol.dominio.entidades.ClienteModel;
+import com.coelho.sistcontrol.dominio.interfRepositorios.IClienteRepository;
 import com.coelho.sistcontrol.interface_adaptadora.repositorios.entidades.Cliente;
-import com.coelho.sistcontrol.interface_adaptadora.repositorios.interface_jpa.ClienteRepository;
 
 @Service
 public class ClienteService {
 
-    private final ClienteRepository clienteRepository;
+    private final IClienteRepository clienteRepository;
 
-    public ClienteService(ClienteRepository clienteRepository) {
+    public ClienteService(IClienteRepository clienteRepository) {
         this.clienteRepository = clienteRepository;
     }
 
-    public Cliente cadastrar(ClienteModel cliente) {
-        return clienteRepository.save(Cliente.fromModel(cliente));
+    public ClienteModel cadastrar(ClienteModel cliente) {
+        return clienteRepository.save(cliente);
     }
 
-    public List<Cliente> listarTodos() {
+    public List<ClienteModel> listarTodos() {
         return clienteRepository.findAll();
     }
 
-    public Optional<Cliente> buscarPorId(Long id) {
+    public Optional<ClienteModel> buscarPorId(Long id) {
         return clienteRepository.findById(id);
     }
 
     // Retorna a lista de assinaturas do cliente informado
     public List<AssinaturaModel> listarAssinaturasPorCliente(Long clienteId) {
-        Cliente cliente = clienteRepository.findById(clienteId)
+        ClienteModel cliente = clienteRepository.findById(clienteId)
                 .orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
         
-        return cliente.getAssinaturas().stream()
+        return Cliente.fromModel(cliente).getAssinaturas().stream()
                 .map(assinatura -> assinatura.toModel())
                 .toList();
     }
+
     public ClienteModel editarCliente(Long id, ClienteModel clienteModel) {
-        Cliente entity = clienteRepository.findById(id)
+        ClienteModel entity = clienteRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
         
-        entity.atualizarDados(clienteModel);  // Atualiza os dados do cliente
-        Cliente atualizado = clienteRepository.save(entity);
-        return atualizado.toModel();
+        Cliente.fromModel(entity).atualizarDados(clienteModel);  // Atualiza os dados do cliente
+        ClienteModel atualizado = clienteRepository.save(entity);
+        return atualizado;
     }
 }
