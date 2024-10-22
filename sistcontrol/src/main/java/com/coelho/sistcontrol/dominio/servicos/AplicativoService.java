@@ -22,7 +22,7 @@ public class AplicativoService {
     // Listar todos os aplicativos
     public List<AplicativoModel> listarAplicativos() {
         return aplicativoRepository.findAll().stream()
-                .map(Aplicativo::toModel)  // Conversão de entity para model
+                .map(Aplicativo::toModel)  // Conversão de entity para model TODO: Isso ta uma merda - PEDRO FAM
                 .toList();
     }
 
