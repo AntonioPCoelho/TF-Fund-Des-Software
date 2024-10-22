@@ -10,10 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.coelho.sistcontrol.dominio.servicos.ClienteService;
-
-
+import com.coelho.sistcontrol.aplicacao.dtos.ClienteDTO;
 import com.coelho.sistcontrol.dominio.entidades.ClienteModel;
-import org.springframework.web.bind.annotation.*;
 
 
 @RestController
@@ -26,30 +24,16 @@ public class ClienteController {
         this.clienteService = clienteService;
     }
 
-    // Listar todos os clientes cadastrados
+    // Endpoint para listar todos os clientes
     @GetMapping
-    public List<ClienteModel> listarClientes() {
-        return clienteService.listarTodos().stream().map(x -> x.toModel()).toList();
-    }
-
-    // Cadastrar um novo cliente
-    @PostMapping
-    public ResponseEntity<ClienteModel> cadastrarCliente(@RequestBody ClienteModel clienteModel) {
-        ClienteModel novoCliente = clienteService.cadastrar(clienteModel).toModel();
-        return ResponseEntity.ok(novoCliente);
-    }
-
-    // Editar um cliente existente
-    @PutMapping("/{id}")
-    public ResponseEntity<ClienteModel> editarCliente(@PathVariable Long id, @RequestBody ClienteModel clienteModel) {
-        ClienteModel atualizado = clienteService.editarCliente(id, clienteModel);
-        return ResponseEntity.ok(atualizado);
-    }
-
-    // Listar assinaturas de um cliente
-    @GetMapping("/{id}/assinaturas")
-    public ResponseEntity<?> listarAssinaturasPorCliente(@PathVariable Long id) {
-        return ResponseEntity.ok(clienteService.listarAssinaturasPorCliente(id));
+    public ResponseEntity<List<ClienteDTO>> listarTodos() {
+        List<ClienteModel> clientes = clienteService.listarTodos();
+        
+        // Convertendo os ClienteModel para ClienteDTO para evitar exposição de dados sensíveis
+        List<ClienteDTO> clientesDTO = clientes.stream()
+            .map(cliente -> new ClienteDTO(cliente.getId(), cliente.getNome(), cliente.getEmail()))
+            .toList();
+        
+        return ResponseEntity.ok(clientesDTO);
     }
 }
-
