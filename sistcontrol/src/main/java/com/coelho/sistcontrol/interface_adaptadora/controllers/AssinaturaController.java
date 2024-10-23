@@ -33,7 +33,7 @@ public class AssinaturaController {
 
     // Verificar se uma assinatura é válida
     @GetMapping("/assinvalida/{id}")
-    public ResponseEntity<Boolean> isAssinaturaValida(@RequestParam Long id) {
+    public ResponseEntity<Boolean> isAssinaturaValida(@PathVariable Long id) {
         boolean isValida = assinaturaService.isAssinaturaValida(id);
         return ResponseEntity.ok(isValida);
     }
