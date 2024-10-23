@@ -1,5 +1,6 @@
 package com.coelho.sistcontrol.aplicacao.dtos;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import com.coelho.sistcontrol.dominio.entidades.AssinaturaModel;
@@ -7,12 +8,12 @@ import com.coelho.sistcontrol.dominio.entidades.AssinaturaModel;
 public class PagamentoDTO {
 
     private long id;
-    private double valorPago;
+    private BigDecimal valorPago;
     private Date dataPagamento;
     private String promocao;
     private AssinaturaModel ass;
 
-    public PagamentoDTO(long id, double valorPago, Date dataPagamento, String promocao, AssinaturaModel ass) {
+    public PagamentoDTO(long id, BigDecimal valorPago, Date dataPagamento, String promocao, AssinaturaModel ass) {
         this.id = id;
         this.valorPago = valorPago;
         this.dataPagamento = dataPagamento;
@@ -28,11 +29,11 @@ public class PagamentoDTO {
         this.id = id;
     }
 
-    public double getValorPago() {
+    public BigDecimal getValorPago() {
         return valorPago;
     }
 
-    public void setValorPago(double valorPago) {
+    public void setValorPago(BigDecimal valorPago) {
         this.valorPago = valorPago;
     }
 

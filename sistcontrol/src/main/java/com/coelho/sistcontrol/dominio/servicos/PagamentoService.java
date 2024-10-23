@@ -1,8 +1,13 @@
 package com.coelho.sistcontrol.dominio.servicos;
 
+import java.math.BigDecimal;
+import java.util.Calendar;
+import java.util.Date;
+
 import org.springframework.stereotype.Service;
 
 import com.coelho.sistcontrol.aplicacao.dtos.PagamentoDTO;
+import com.coelho.sistcontrol.aplicacao.dtos.PagamentoRequestDTO;
 import com.coelho.sistcontrol.dominio.entidades.AssinaturaModel;
 import com.coelho.sistcontrol.dominio.entidades.PagamentoModel;
 import com.coelho.sistcontrol.dominio.interfRepositorios.IAssinaturaRepository;
@@ -26,7 +31,7 @@ public class PagamentoService {
                 .orElseThrow(() -> new IllegalArgumentException("Assinatura não encontrada"));
 
         // Verificar se o valor pago corresponde ao custo mensal da assinatura
-        double valorEsperado = assinatura.getApp().getCustoMensal();
+        BigDecimal valorEsperado = assinatura.getApp().getCustoMensal();
         if (pagamentoDTO.getValorPago() != valorEsperado) {
             throw new IllegalArgumentException("Valor pago está incorreto. Esperado: " + valorEsperado);
         }
@@ -34,10 +39,10 @@ public class PagamentoService {
         // Criar a entidade PagamentoModel e salvar
         PagamentoModel novoPagamento = new PagamentoModel(
                 pagamentoDTO.getId(),
-                assinatura,
                 pagamentoDTO.getValorPago(),
                 pagamentoDTO.getDataPagamento(),
-                pagamentoDTO.getPromocao()
+                pagamentoDTO.getPromocao(),
+                assinatura
         );
 
         PagamentoModel pagamentoSalvo = pagamentoRepository.save(novoPagamento);
@@ -50,5 +55,27 @@ public class PagamentoService {
                 pagamentoSalvo.getPromocao(),
                 pagamentoSalvo.getAssinatura()
         );
+    }
+
+    public void registrarPagamento(PagamentoRequestDTO request, AssinaturaModel assinatura) {
+        // Criar o pagamento utilizando o construtor correto
+        PagamentoModel pagamento = new PagamentoModel(
+            0, // O ID será gerado automaticamente
+            request.getValorPago(),
+            createDate(request.getAno(), request.getMes(), request.getDia()),
+            null, // Aqui você pode passar uma promoção, se aplicável
+            assinatura
+        );
+        
+        pagamentoRepository.save(pagamento);
+    }
+
+    // Método auxiliar para criar um objeto Date a partir de ano, mês e dia
+    private Date createDate(int year, int month, int day) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR, year);
+        calendar.set(Calendar.MONTH, month - 1); // O mês em Calendar começa de 0 (janeiro é 0)
+        calendar.set(Calendar.DAY_OF_MONTH, day);
+        return calendar.getTime();
     }
 }

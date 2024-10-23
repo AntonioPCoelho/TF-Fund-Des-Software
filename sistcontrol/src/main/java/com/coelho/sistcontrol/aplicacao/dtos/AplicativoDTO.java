@@ -1,11 +1,13 @@
 package com.coelho.sistcontrol.aplicacao.dtos;
 
+import java.math.BigDecimal;
+
 public class AplicativoDTO {
     private Long codigo;
     private String nome;
-    private double custo;
+    private BigDecimal custo;
 
-    public AplicativoDTO(Long codigo, String nome, double custo) {
+    public AplicativoDTO(Long codigo, String nome, BigDecimal custo) {
         this.codigo = codigo;
         this.nome = nome;
         this.custo = custo;
@@ -28,11 +30,11 @@ public class AplicativoDTO {
         this.nome = nome;
     }
 
-    public double getCusto() {
+    public BigDecimal getCusto() {
         return custo;
     }
 
-    public void setCusto(double custo) {
+    public void setCusto(BigDecimal custo) {
         this.custo = custo;
     }
 }

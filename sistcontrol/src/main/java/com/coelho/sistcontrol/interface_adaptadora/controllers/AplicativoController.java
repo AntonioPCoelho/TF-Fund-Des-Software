@@ -1,5 +1,6 @@
 package com.coelho.sistcontrol.interface_adaptadora.controllers;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
@@ -37,7 +38,7 @@ public class AplicativoController {
     }
 
     @PostMapping("/aplicativos/atualizacusto/{idAplicativo}")
-    public ResponseEntity<AplicativoDTO> atualizarCusto(@PathVariable Long idAplicativo, @RequestBody double custo) {
+    public ResponseEntity<AplicativoDTO> atualizarCusto(@PathVariable Long idAplicativo, @RequestBody BigDecimal custo) {
         // Atualiza o custo mensal e obtém o aplicativo atualizado
         AplicativoModel aplicativoAtualizado = aplicativoService.atualizarCustoMensal(idAplicativo, custo);
         

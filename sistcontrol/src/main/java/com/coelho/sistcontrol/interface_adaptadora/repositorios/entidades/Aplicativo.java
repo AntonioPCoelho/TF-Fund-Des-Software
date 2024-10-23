@@ -1,5 +1,7 @@
 package com.coelho.sistcontrol.interface_adaptadora.repositorios.entidades;
 
+import java.math.BigDecimal;
+
 import com.coelho.sistcontrol.dominio.entidades.AplicativoModel;
 
 import jakarta.persistence.Entity;
@@ -14,7 +16,7 @@ public class Aplicativo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
 
-    public Aplicativo(Long Id, String nome, double custoMensal) {
+    public Aplicativo(Long Id, String nome, BigDecimal custoMensal) {
         this.Id = Id;
         this.nome = nome;
         this.custoMensal = custoMensal;
@@ -23,7 +25,7 @@ public class Aplicativo {
 
     private String nome;
 
-    private double custoMensal;
+    private BigDecimal custoMensal;
 
     public Long getId() {
         return Id;
@@ -41,11 +43,11 @@ public class Aplicativo {
         this.nome = nome;
     }
 
-    public double getCustoMensal() {
+    public BigDecimal getCustoMensal() {
         return custoMensal;
     }
 
-    public void setCustoMensal(double custoMensal) {
+    public void setCustoMensal(BigDecimal custoMensal) {
         this.custoMensal = custoMensal;
     }
     public static Aplicativo fromModel(AplicativoModel model) {

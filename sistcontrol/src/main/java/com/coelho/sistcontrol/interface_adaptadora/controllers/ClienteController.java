@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.coelho.sistcontrol.dominio.servicos.ClienteService;
@@ -13,7 +12,6 @@ import com.coelho.sistcontrol.dominio.entidades.ClienteModel;
 
 
 @RestController
-@RequestMapping("/servcad")
 public class ClienteController {
 
     private final ClienteService clienteService;
@@ -23,7 +21,7 @@ public class ClienteController {
     }
 
     // Endpoint para listar todos os clientes
-    @GetMapping("/clientes")
+    @GetMapping("/servcad/clientes")
     public ResponseEntity<List<ClienteDTO>> listarTodos() {
         List<ClienteModel> clientes = clienteService.listarTodos();
         

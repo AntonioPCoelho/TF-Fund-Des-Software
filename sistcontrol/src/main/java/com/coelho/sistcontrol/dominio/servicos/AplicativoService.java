@@ -1,5 +1,6 @@
 package com.coelho.sistcontrol.dominio.servicos;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -37,7 +38,7 @@ public class AplicativoService {
     }
 
     // Atualizar o custo mensal de um aplicativo
-    public AplicativoModel atualizarCustoMensal(Long id, double novoCusto) {
+    public AplicativoModel atualizarCustoMensal(Long id, BigDecimal novoCusto) {
         AplicativoModel entity = aplicativoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Aplicativo não encontrado"));
 

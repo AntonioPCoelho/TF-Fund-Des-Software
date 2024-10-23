@@ -6,29 +6,28 @@ import org.springframework.http.ResponseEntity;
 
 import com.coelho.sistcontrol.dominio.servicos.AssinaturaService;
 import com.coelho.sistcontrol.dominio.servicos.ClienteService;
+import com.coelho.sistcontrol.aplicacao.casosdeuso.CriarAssinaturaUseCase;
 import com.coelho.sistcontrol.aplicacao.dtos.AssinaturaDTO;
-import com.coelho.sistcontrol.dominio.entidades.AssinaturaModel;
 import com.coelho.sistcontrol.dominio.entidades.ClienteModel;
 
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/servcad")
 public class AssinaturaController {
 
     private final AssinaturaService assinaturaService;
     private final ClienteService clienteService;
+    private final CriarAssinaturaUseCase criarAssinaturaUseCase;
 
-    public AssinaturaController(AssinaturaService assinaturaService, ClienteService clienteService) {
+    public AssinaturaController(AssinaturaService assinaturaService, ClienteService clienteService, CriarAssinaturaUseCase criarAssinaturaUseCase) {
         this.assinaturaService = assinaturaService;
         this.clienteService = clienteService;
+        this.criarAssinaturaUseCase = criarAssinaturaUseCase;
     }
 
     @PostMapping("/assinaturas")
-    public ResponseEntity<AssinaturaDTO> criarAssinatura(@RequestBody AssinaturaDTO assinaturaDTO) {
-        AssinaturaModel novaAssinatura = new AssinaturaModel(assinaturaDTO.getId(), assinaturaDTO.getInicioVigencia(), assinaturaDTO.getFimVigencia(), assinaturaDTO.getApp(), assinaturaDTO.getCliente(), assinaturaDTO.getStatus());
-        AssinaturaModel salva = assinaturaService.salvarAssinatura(novaAssinatura);
-        AssinaturaDTO resposta = new AssinaturaDTO(salva.getId(), salva.getInicioVigencia(), salva.getFimVigencia(), salva.getApp(), salva.getCliente(), salva.getstatus());
+    public ResponseEntity<AssinaturaDTO> criarAssinatura(@RequestParam Long clienteId, @RequestParam Long aplicativoId) {
+        AssinaturaDTO resposta = criarAssinaturaUseCase.execute(clienteId, aplicativoId);
         return ResponseEntity.ok(resposta);
     }
 
@@ -47,7 +46,7 @@ public class AssinaturaController {
     }
 
     // Lista de assinaturas conforme o status (TODAS, ATIVAS ou CANCELADAS)
-    @GetMapping("/assinaturas/{tipo}") // GOOD
+    @GetMapping("/servcad/assinaturas/{tipo}") // GOOD
     public ResponseEntity<List<AssinaturaDTO>> listarAssinaturasPorTipo(@PathVariable String tipo) {
         List<AssinaturaDTO> assinaturas = assinaturaService.listarAssinaturasPorstatus(tipo).stream()
             .map(assinatura -> new AssinaturaDTO(assinatura.getId(), assinatura.getInicioVigencia(), assinatura.getFimVigencia(),
@@ -58,7 +57,7 @@ public class AssinaturaController {
         return ResponseEntity.ok(assinaturas);
     }
 
-    @GetMapping("/asscli/{codcli}")
+    @GetMapping("/servcad/asscli/{codcli}")
     public ResponseEntity<List<AssinaturaDTO>> listarAssinaturasPorCliente(@PathVariable Long codcli) {
         List<AssinaturaDTO> assinaturas = clienteService.listarAssinaturasPorCliente(codcli).stream()
             .map(assinatura -> new AssinaturaDTO(assinatura.getId(), assinatura.getInicioVigencia(), assinatura.getFimVigencia(),

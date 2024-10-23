@@ -1,11 +1,13 @@
 package com.coelho.sistcontrol.dominio.entidades;
 
+import java.math.BigDecimal;
+
 public class AplicativoModel {
     private long Id;
     private String nome;
-    private double custoMensal;
+    private BigDecimal custoMensal;
     
-    public AplicativoModel(long Id, String nome, double custoMensal) {
+    public AplicativoModel(long Id, String nome, BigDecimal custoMensal) {
         this.Id = Id;
         this.nome = nome;
         this.custoMensal = custoMensal;
@@ -19,11 +21,11 @@ public class AplicativoModel {
         return this.nome; 
     }
 
-    public double getCustoMensal() { 
+    public BigDecimal getCustoMensal() { 
         return this.custoMensal; 
     }
 
-    public void setCustoMensal(double custoMensal) { 
+    public void setCustoMensal(BigDecimal custoMensal) { 
         this.custoMensal = custoMensal; 
     }
 

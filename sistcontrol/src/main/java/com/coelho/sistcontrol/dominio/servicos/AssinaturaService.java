@@ -1,5 +1,6 @@
 package com.coelho.sistcontrol.dominio.servicos;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -24,6 +25,24 @@ public class AssinaturaService {
             IAplicativoRepository aplicativoRepository) {
         this.assinaturaRepository = assinaturaRepository;
         this.aplicativoRepository = aplicativoRepository;
+    }
+
+    public AssinaturaModel criarNovaAssinatura(ClienteModel cliente, AplicativoModel aplicativo) {
+        // Lógica para criar uma nova assinatura
+        Date dataInicio = new Date(); // Data de início da assinatura (hoje)
+        Date dataFim = addDays(dataInicio, 7); // 7 dias grátis inicialmente
+
+        AssinaturaModel novaAssinatura = new AssinaturaModel(0, dataInicio, dataFim, aplicativo, cliente, "ATIVA");
+
+        // Salvar a nova assinatura
+        return assinaturaRepository.save(novaAssinatura);
+    }
+
+    private Date addDays(Date date, int days) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.DAY_OF_MONTH, days);
+        return calendar.getTime();
     }
 
     public AssinaturaModel salvarAssinatura(AssinaturaModel assinaturaModel) {

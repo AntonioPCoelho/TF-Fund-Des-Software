@@ -1,5 +1,6 @@
 package com.coelho.sistcontrol.interface_adaptadora.repositorios.entidades;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import com.coelho.sistcontrol.dominio.entidades.PagamentoModel;
 
@@ -21,13 +22,13 @@ public class Pagamento {
     @JoinColumn(name = "assinatura_Id")
     private Assinatura assinatura;
 
-    private double valorPago;
+    private BigDecimal valorPago;
 
     private Date dataPagamento;
 
     private String promocao;
 
-    public Pagamento(Long Id, Assinatura assinatura, double valorPago, Date dataPagamento, String promocao) {
+    public Pagamento(Long Id, Assinatura assinatura, BigDecimal valorPago, Date dataPagamento, String promocao) {
         this.Id = Id;
         this.assinatura = assinatura;
         this.valorPago = valorPago;
@@ -53,11 +54,11 @@ public class Pagamento {
         this.assinatura = assinatura;
     }
 
-    public double getValorPago() {
+    public BigDecimal getValorPago() {
         return valorPago;
     }
 
-    public void setValorPago(double valorPago) {
+    public void setValorPago(BigDecimal valorPago) {
         this.valorPago = valorPago;
     }
 
@@ -82,8 +83,7 @@ public class Pagamento {
     }
 
     public PagamentoModel toModel() {
-        return new PagamentoModel(this.Id, this.assinatura.toModel(), this.valorPago, this.dataPagamento, this.promocao);
-        
+        return new PagamentoModel(this.Id, this.valorPago, this.dataPagamento, this.promocao, this.assinatura.toModel());
     }
 
 }
