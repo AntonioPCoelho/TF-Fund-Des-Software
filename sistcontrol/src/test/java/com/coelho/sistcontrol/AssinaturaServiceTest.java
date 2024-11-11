@@ -52,5 +52,4 @@ class AssinaturaServiceTest {
         assertTrue(isValid);
     }
 
-    // Additional tests for other methods in AssinaturaService
 }
