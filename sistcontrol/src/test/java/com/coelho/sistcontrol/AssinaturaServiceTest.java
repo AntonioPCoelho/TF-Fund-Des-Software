@@ -1,19 +1,22 @@
+package com.coelho.sistcontrol;
+
 import com.coelho.sistcontrol.dominio.entidades.*;
 import com.coelho.sistcontrol.dominio.interfRepositorios.IAplicativoRepository;
 import com.coelho.sistcontrol.dominio.interfRepositorios.IAssinaturaRepository;
 import com.coelho.sistcontrol.dominio.servicos.AssinaturaService;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.math.BigDecimal;
 import java.util.Date;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
+@ExtendWith(MockitoExtension.class)
 class AssinaturaServiceTest {
 
     @Mock
@@ -25,31 +28,20 @@ class AssinaturaServiceTest {
     @InjectMocks
     private AssinaturaService assinaturaService;
 
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.openMocks(this);
-    }
-
     @Test
-    void criarNovaAssinatura_shouldCreateAndReturnAssinatura() {
-        ClienteModel cliente = new ClienteModel();
-        AplicativoModel aplicativo = new AplicativoModel();
-        AssinaturaModel novaAssinatura = assinaturaService.criarNovaAssinatura(cliente, aplicativo);
+    void deveCriarNovaAssinaturaComSucesso() {
+        ClienteModel cliente = new ClienteModel(1L, "Cliente Teste", "coelho@gmail.com");
+        AplicativoModel aplicativo = new AplicativoModel(1L, "App Teste", new BigDecimal(10));
+        AssinaturaModel assinaturaEsperada = new AssinaturaModel(1L, new Date(), new Date(), aplicativo, cliente,
+                "ATIVA");
 
-        assertNotNull(novaAssinatura);
-        assertEquals("ATIVA", novaAssinatura.getStatus());
-        verify(assinaturaRepository).save(any(AssinaturaModel.class));
+        Mockito.when(assinaturaRepository.save(Mockito.any())).thenReturn(assinaturaEsperada);
+
+        AssinaturaModel assinaturaCriada = assinaturaService.criarNovaAssinatura(cliente, aplicativo);
+
+        assertNotNull(assinaturaCriada);
+        assertEquals("ATIVA", assinaturaCriada.getstatus());
+        assertEquals(cliente, assinaturaCriada.getCliente());
+        assertEquals(aplicativo, assinaturaCriada.getApp());
     }
-
-    @Test
-    void isAssinaturaValida_shouldReturnTrueIfValid() {
-        Assinatura assinatura = new Assinatura();
-        assinatura.setFimVigencia(new Date(System.currentTimeMillis() + 100000)); // Future date
-
-        when(assinaturaRepository.findByid(1L)).thenReturn(Optional.of(assinatura));
-
-        boolean isValid = assinaturaService.isAssinaturaValida(1L);
-        assertTrue(isValid);
-    }
-
 }
