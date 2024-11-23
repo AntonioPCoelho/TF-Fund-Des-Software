@@ -7,7 +7,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.math.BigDecimal;
 import java.util.Date;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +19,9 @@ import com.coelho.sistcontrol.aplicacao.casosdeuso.CriarAssinaturaUseCase;
 import com.coelho.sistcontrol.aplicacao.dtos.AssinaturaDTO;
 import com.coelho.sistcontrol.dominio.entidades.AplicativoModel;
 import com.coelho.sistcontrol.dominio.entidades.ClienteModel;
+import com.coelho.sistcontrol.dominio.servicos.AssinaturaService;
+import com.coelho.sistcontrol.dominio.servicos.ClienteService;
 import com.coelho.sistcontrol.interface_adaptadora.controllers.AssinaturaController;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 @WebMvcTest(controllers = AssinaturaController.class)
 class AssinaturaControllerTest {
@@ -32,12 +32,11 @@ class AssinaturaControllerTest {
     @MockBean
     private CriarAssinaturaUseCase criarAssinaturaUseCase;
 
-    private ObjectMapper objectMapper;
+    @MockBean
+    private AssinaturaService assinaturaService;
 
-    @BeforeEach
-    void setup() {
-        objectMapper = new ObjectMapper();
-    }
+    @MockBean
+    private ClienteService clienteService;
 
     @Test
     void deveCriarAssinatura() throws Exception {
@@ -47,11 +46,11 @@ class AssinaturaControllerTest {
 
         // Mock do caso de uso
         AssinaturaDTO respostaMock = new AssinaturaDTO(
-                1L, 
-                new Date(), 
+                1L,
                 new Date(),
-                new AplicativoModel(1L, "App Exemplo", new BigDecimal(50.0)),
-                new ClienteModel(1L, "João", "joao@email.com"), 
+                new Date(),
+                new AplicativoModel(1L, "App Exemplo", new BigDecimal("50.0")),
+                new ClienteModel(1L, "João", "joao@email.com"),
                 "ATIVA"
         );
 
@@ -65,6 +64,6 @@ class AssinaturaControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.status").value("ATIVA"))
                 .andExpect(jsonPath("$.cliente.nome").value("João"))
-                .andExpect(jsonPath("$.aplicativo.nome").value("App Exemplo"));
+                .andExpect(jsonPath("$.app.nome").value("App Exemplo"));
     }
 }
