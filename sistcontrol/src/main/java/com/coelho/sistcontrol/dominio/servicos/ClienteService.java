@@ -49,4 +49,8 @@ public class ClienteService {
         ClienteModel atualizado = clienteRepository.save(entity);
         return atualizado;
     }
+
+    public void deleteAll(){
+        
+    }
 }

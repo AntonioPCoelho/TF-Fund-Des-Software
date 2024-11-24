@@ -10,5 +10,5 @@ public interface IClienteRepository {
     ClienteModel save(ClienteModel cliente);
     List<ClienteModel> findAll();
     Optional<ClienteModel> findById(Long id); 
-
+    void deleteAll();
 }

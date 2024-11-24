@@ -32,5 +32,8 @@ public class AplicativoRepository implements IAplicativoRepository{
     public AplicativoModel save(AplicativoModel app) {
         return this.aplicativos.save(Aplicativo.fromModel(app)).toModel();
     }
-
+    @Override
+    public void deleteAll() {
+        aplicativos.deleteAll();        
+    }
 }

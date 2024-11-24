@@ -36,4 +36,9 @@ public class ClienteRepository implements IClienteRepository{
     public Optional<ClienteModel> findById(Long id) {
         return clientes.findById(id).map(Cliente::toModel);
     }
+
+    @Override
+    public void deleteAll(){
+        clientes.deleteAll();
+    }
 }

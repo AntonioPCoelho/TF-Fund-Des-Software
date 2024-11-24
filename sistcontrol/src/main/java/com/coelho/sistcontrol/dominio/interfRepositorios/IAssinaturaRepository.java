@@ -18,5 +18,6 @@ public interface IAssinaturaRepository {
     List<AssinaturaModel> findByStatus(String status);
     List<ClienteModel> findClientesByAplicativo(Long appId);
     Optional<Assinatura> findByid(Long id);
+    void deleteAll();
     
 }

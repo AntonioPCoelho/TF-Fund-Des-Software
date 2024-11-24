@@ -32,7 +32,7 @@ public class PagamentoService {
 
         // Verificar se o valor pago corresponde ao custo mensal da assinatura
         BigDecimal valorEsperado = assinatura.getApp().getCustoMensal();
-        if (pagamentoDTO.getValorPago() != valorEsperado) {
+        if (pagamentoDTO.getValorPago().compareTo(valorEsperado) != 0) {
             throw new IllegalArgumentException("Valor pago está incorreto. Esperado: " + valorEsperado);
         }
 

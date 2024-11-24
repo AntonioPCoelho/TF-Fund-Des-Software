@@ -10,4 +10,5 @@ public interface IAplicativoRepository {
     List<AplicativoModel> findAll();
     Optional<AplicativoModel> findById(Long id);
     AplicativoModel save(AplicativoModel app);
+    void deleteAll();
 }
