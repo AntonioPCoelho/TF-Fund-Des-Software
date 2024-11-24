@@ -69,5 +69,10 @@ import com.coelho.sistcontrol.interface_adaptadora.repositorios.interface_jpa.As
         public Optional<Assinatura> findByid(Long id) {
             return assinaturas.findById(id);
         }
+        @Override
+        public void deleteAll() {
+            assinaturas.deleteAll();
+            
+        }
 
     }
