@@ -17,6 +17,6 @@ public interface PagamentoRepositoryJPA extends JpaRepository<Pagamento, Long> {
     List<PagamentoModel> findByDataPagamento(Date dataPagamento);
 
     @Query("SELECT p FROM Pagamento p WHERE p.assinatura.id = :assinaturaId")
-    Optional<PagamentoModel> findByAssinaturaId(@Param("assinaturaId") Long assinaturaId);
+    Optional<Pagamento> findByAssinaturaId(@Param("assinaturaId") Long assinaturaId);
 
 }

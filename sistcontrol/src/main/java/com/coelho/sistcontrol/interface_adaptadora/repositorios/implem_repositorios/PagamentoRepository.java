@@ -29,6 +29,7 @@ public class PagamentoRepository implements IPagamentoRepository {
     }
     @Override
     public Optional<PagamentoModel> findByAssinaturaId(long ass_id) {
-        return pagamentos.findByAssinaturaId(ass_id);
+        return pagamentos.findByAssinaturaId(ass_id).map(Pagamento::toModel);
+        
     }
 }
