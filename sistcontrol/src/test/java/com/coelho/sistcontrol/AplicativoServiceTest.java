@@ -41,6 +41,4 @@ class AplicativoServiceTest {
         assertEquals("Spotify", salvo.getNome());
         assertEquals(new BigDecimal("19.99"), salvo.getCustoMensal());
     }
-
-    
 }
