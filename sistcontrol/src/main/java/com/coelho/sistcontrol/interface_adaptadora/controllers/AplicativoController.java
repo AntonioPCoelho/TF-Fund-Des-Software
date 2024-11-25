@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.coelho.sistcontrol.dominio.servicos.AplicativoService;
 import com.coelho.sistcontrol.aplicacao.dtos.AplicativoDTO;
 import com.coelho.sistcontrol.dominio.entidades.AplicativoModel;
+import com.coelho.sistcontrol.dominio.servicos.AplicativoService;
 @RestController
 @RequestMapping("/servcad")
 public class AplicativoController {
@@ -46,5 +47,13 @@ public class AplicativoController {
         AplicativoDTO aplicativoDTO = new AplicativoDTO(aplicativoAtualizado.getId(), aplicativoAtualizado.getNome(), aplicativoAtualizado.getCustoMensal());
         
         return ResponseEntity.ok(aplicativoDTO);
+    }
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<String> handleRuntimeException(RuntimeException ex) {
+        return ResponseEntity.status(404).body(ex.getMessage());
+    }
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<String> handleIllegalArgumentException(IllegalArgumentException ex) {
+        return ResponseEntity.badRequest().body(ex.getMessage());
     }
 }
