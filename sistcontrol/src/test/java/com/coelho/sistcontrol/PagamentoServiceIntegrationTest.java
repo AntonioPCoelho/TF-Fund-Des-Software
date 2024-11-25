@@ -54,11 +54,6 @@ public class PagamentoServiceIntegrationTest {
 
     @BeforeEach
     void setUp() {
-        // Limpar dados anteriores
-        pagamentoRepository.deleteAll();
-        assinaturaRepository.deleteAll();
-        clienteRepository.deleteAll();
-        aplicativoRepository.deleteAll();
 
         // Criar dados base para testes
         cliente = clienteRepository.save(new ClienteModel(0L, "Cliente Teste", "cliente@teste.com"));
@@ -80,13 +75,13 @@ public class PagamentoServiceIntegrationTest {
         ));
     }
 
-    @AfterEach
-    void tearDown() {
-        pagamentoRepository.deleteAll();
-        assinaturaRepository.deleteAll();
-        clienteRepository.deleteAll();
-        aplicativoRepository.deleteAll();
-    }
+    // @AfterEach
+    // void tearDown() {
+    //     pagamentoRepository.deleteAll();
+    //     assinaturaRepository.deleteAll();
+    //     clienteRepository.deleteAll();
+    //     aplicativoRepository.deleteAll();
+    // }
 
     @Test
     void deveRegistrarPagamentoComSucesso() {
