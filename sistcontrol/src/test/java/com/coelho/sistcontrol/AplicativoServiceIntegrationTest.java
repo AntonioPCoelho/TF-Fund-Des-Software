@@ -1,12 +1,11 @@
 package com.coelho.sistcontrol;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
 import java.math.BigDecimal;
 import java.util.List;
 
-import org.junit.jupiter.api.BeforeEach;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -78,5 +77,17 @@ public class AplicativoServiceIntegrationTest {
         // Assert
         assertEquals("App Editado", editado.getNome());
         assertEquals(new BigDecimal("29.99"), editado.getCustoMensal());
+    }
+    
+   @Test
+    void deveLancarExcecaoQuandoAplicativoNaoEncontrado() {
+        // Arrange
+        Long idInexistente = 999L;
+
+        // Act & Assert
+        assertThrows(RuntimeException.class, () -> {
+            aplicativoRepository.findById(idInexistente)
+                    .orElseThrow(() -> new RuntimeException("Aplicativo não encontrado"));
+        });
     }
 }

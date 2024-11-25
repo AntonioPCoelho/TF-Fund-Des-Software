@@ -3,14 +3,18 @@ package com.coelho.sistcontrol.interface_adaptadora.controllers;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-import com.coelho.sistcontrol.dominio.servicos.AssinaturaService;
-import com.coelho.sistcontrol.dominio.servicos.ClienteService;
 import com.coelho.sistcontrol.aplicacao.casosdeuso.CriarAssinaturaUseCase;
 import com.coelho.sistcontrol.aplicacao.dtos.AssinaturaDTO;
 import com.coelho.sistcontrol.dominio.entidades.ClienteModel;
-
-import org.springframework.web.bind.annotation.*;
+import com.coelho.sistcontrol.dominio.servicos.AssinaturaService;
+import com.coelho.sistcontrol.dominio.servicos.ClienteService;
 
 @RestController
 public class AssinaturaController {
@@ -65,6 +69,10 @@ public class AssinaturaController {
                 assinatura.getstatus()))
             .toList();
         return ResponseEntity.ok(assinaturas);
+    }
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<String> handleRuntimeException(RuntimeException ex) {
+        return ResponseEntity.status(500).body(ex.getMessage());
     }
 
 }

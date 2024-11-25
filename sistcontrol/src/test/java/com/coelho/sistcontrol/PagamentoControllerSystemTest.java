@@ -10,22 +10,18 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.coelho.sistcontrol.aplicacao.dtos.PagamentoRequestDTO;
 import com.coelho.sistcontrol.dominio.entidades.AplicativoModel;
 import com.coelho.sistcontrol.dominio.entidades.ClienteModel;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-
+import com.coelho.sistcontrol.dominio.servicos.AplicativoService;
 import com.coelho.sistcontrol.dominio.servicos.AssinaturaService;
 import com.coelho.sistcontrol.dominio.servicos.ClienteService;
-import com.coelho.sistcontrol.dominio.servicos.AplicativoService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -115,6 +111,49 @@ class PagamentoControllerSystemTest {
             .content(objectMapper.writeValueAsString(request)))
             .andExpect(status().isOk())
             .andExpect(jsonPath("$.status").value("PAGAMENTO_OK"))
+            .andExpect(jsonPath("$.valorEstornado").value(0));
+    }
+    @Test
+    void testObterDetalhesPagamentoComIdInvalido() throws Exception {
+        // Act & Assert
+        mockMvc.perform(get("/detalhespagamento/99999")
+            .contentType(MediaType.APPLICATION_JSON))
+            .andExpect(status().isNotFound());
+    }
+    @Test
+    void testRegistrarPagamentoComDescontoInvalido() throws Exception {
+        // Arrange
+        PagamentoRequestDTO request = new PagamentoRequestDTO(2, 2, 2004, 10L, BigDecimal.TEN);
+        request.setCodass(codAssIniciado); // Usar o código da assinatura criada
+        request.setValorPago(new BigDecimal("47.50")); // Valor com desconto inválido
+        request.setAno(2024);
+        request.setMes(1);
+        request.setDia(1);
+
+        // Act & Assert
+        mockMvc.perform(post("/registrarpagamento/DESCONTO_10")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(objectMapper.writeValueAsString(request)))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.status").value("VALOR_INCORRETO"))
+            .andExpect(jsonPath("$.valorEstornado").value(47));
+    }
+    @Test
+    void testRegistrarPagamentoComValorZero() throws Exception {
+        // Arrange
+        PagamentoRequestDTO request = new PagamentoRequestDTO(2, 2, 2004, 10L, BigDecimal.ZERO);
+        request.setCodass(codAssIniciado); // Usar o código da assinatura criada
+        request.setValorPago(BigDecimal.ZERO); // Valor zero
+        request.setAno(2024);
+        request.setMes(1);
+        request.setDia(1);
+
+        // Act & Assert
+        mockMvc.perform(post("/registrarpagamento")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(objectMapper.writeValueAsString(request)))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.status").value("VALOR_INCORRETO"))
             .andExpect(jsonPath("$.valorEstornado").value(0));
     }
 }

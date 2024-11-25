@@ -1,11 +1,11 @@
 package com.coelho.sistcontrol;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import java.math.BigDecimal;
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -48,5 +48,22 @@ class AssinaturaServiceIntegrationTest {
         assertTrue(assinaturaSalva.isPresent());
         assertEquals(cliente.getId(), assinaturaSalva.get().getCliente().getId());
         assertEquals(aplicativo.getId(), assinaturaSalva.get().getApp().getId());
+    }
+    @Test
+    void deveLancarExcecaoQuandoClienteNaoExistir() {
+        AplicativoModel aplicativo = aplicativoRepository.save(new AplicativoModel(1L, "App Integração", new BigDecimal(10)));
+
+        assertThrows(RuntimeException.class, () -> {
+            assinaturaService.criarNovaAssinatura(null, aplicativo);
+        });
+    }
+
+    @Test
+    void deveLancarExcecaoQuandoAplicativoNaoExistir() {
+        ClienteModel cliente = clienteRepository.save(new ClienteModel(1L, "Cliente teste", "fake234@email.com"));
+
+        assertThrows(RuntimeException.class, () -> {
+            assinaturaService.criarNovaAssinatura(cliente, null);
+        });
     }
 }
